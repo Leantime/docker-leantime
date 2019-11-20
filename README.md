@@ -1,16 +1,16 @@
 
-<img src="https://leantime.io/logos/leantime-logo-transparentBg-landscape-1500.png"/>
+<img src="https://leantime.io/logos/leantime-logo-transparentBg-landscape-1500.png" width="400"/>
 
 # Leantime Docker #
 
-Leantime is an open source project management system for small teams and startups written in PHP, Javascript with MySQL. [https://leantime.io](https://leantime.io)
+Leantime is an open source project management system for small teams and startups written in PHP, Javascript using MySQL. [https://leantime.io](https://leantime.io)
 
-This is the git repository for the official <a href="https://hub.docker.com/r/leantime/leantime">Docker image for Leantime</a>. This image was built using the <a href="https://github.com/Leantime/leantime/releases">latest Leantime release</a>
+This is the official <a href="https://hub.docker.com/r/leantime/leantime">Docker image for Leantime</a>. It was built using the <a href="https://github.com/Leantime/leantime/releases">latest Leantime release</a>.
 
 
 ## How to use this image
 
-To launch this image you will need your MySQL database credentials. 
+To run this image you will need an existing MySQL database. 
 
 ```
 docker run -d -p 80:80 --network leantime-net \
@@ -18,13 +18,13 @@ docker run -d -p 80:80 --network leantime-net \
 -e MYSQL_USER=admin \
 -e MYSQL_PASSWORD=321.qwerty \
 -e MYSQL_DATABASE=leantime \
---name leantime leantime/leantime:2.0
+--name leantime leantime/leantime:latest
 ```
 Once started you can go to `<yourdomain.com>/install` and run the installation script.
 
-## Full set up with MySql and Network
+## Full set up with MySQL and network
 
-If you don't have a mysql database set up and would like to create a container follow these instruction.
+If you don't have a MySQL database set up and would like to create a container follow these instruction.
 
 1. Create the network so Leantime can communicate with the MySql container.
 
@@ -51,7 +51,7 @@ docker run -d -p 80:80 --network leantime-net \
 -e MYSQL_USER=admin \
 -e MYSQL_PASSWORD=321.qwerty \
 -e MYSQL_DATABASE=leantime \
---name leantime leantime/leantime:2.0
+--name leantime leantime/leantime:latest
 ```
 
 4. Run the installation script at `<yourdomain.com>/install`
