@@ -40,7 +40,7 @@ docker run -d -p 3306:3306 --network leantime-net \
 -e MYSQL_DATABASE=leantime \
 -e MYSQL_USER=admin \
 -e MYSQL_PASSWORD=321.qwerty \
---name mysql_leantime mysql:5.7 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+--name mysql_leantime mysql:5.7 --character-set-server=utf8 --collation-server=utf8_unicode_ci
 ```
 
 3. Create the Leantime container.
