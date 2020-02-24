@@ -56,3 +56,13 @@ docker run -d -p 80:80 --network leantime-net \
 
 4. Run the installation script at `<yourdomain.com>/install`
 
+## Full Set up with docker-compose
+
+One command install with docker-compose.
+
+```
+git clone https://github.com/Leantime/docker-leantime.git
+cd docker-leantime
+docker-compose up -d
+```
+
