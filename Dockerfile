@@ -42,8 +42,8 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 
 
 RUN cd /var/www/html && \
-    wget https://github.com/Leantime/leantime/releases/download/v2.0.10/Leantime-V2.0.10.tar.gz && \
-    tar -zxvf Leantime-V2.0.10.tar.gz --strip-components 1
+    wget https://github.com/Leantime/leantime/releases/download/v2.0.11/Leantime-V2.0.11.tar.gz && \
+    tar -zxvf Leantime-V2.0.11.tar.gz --strip-components 1
 
 
 RUN chmod 775 . && \
