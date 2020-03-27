@@ -24,8 +24,8 @@ RUN docker-php-ext-install gd
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN curl -LJO https://github.com/Leantime/leantime/releases/download/v2.0.14/Leantime-V2.0.14.tar.gz && \
-    tar -zxvf Leantime-V2.0.14.tar.gz --strip-components 1
+RUN curl -LJO https://github.com/Leantime/leantime/releases/download/v2.0.15/Leantime-V2.0.15.tar.gz && \
+    tar -zxvf Leantime-V2.0.15.tar.gz --strip-components 1
 
 RUN chown www-data -R .
 
