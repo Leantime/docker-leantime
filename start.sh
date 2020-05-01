@@ -4,7 +4,7 @@ APP_DIR="/var/www/html"
 CONFIG="/var/www/html/config/configuration.php"
 
 if [ -f "$CONFIG" ]; then
-     echo "Config file already exist!"
+    echo "Config file already exists!"
 else
     echo "Creating configuration file!"
     cd $APP_DIR

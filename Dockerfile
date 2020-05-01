@@ -1,17 +1,15 @@
 FROM php:7.2-fpm-alpine
 
+ARG LEAN_VERSION=2.1
+
 WORKDIR /var/www/html
 
 # Install dependencies
 RUN apk update && apk add --no-cache \
-    build-base \
-    gcc \
     mysql-client \
     freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev \
     icu-libs \
     jpegoptim optipng pngquant gifsicle \
-    git \
-    npm \
     supervisor \
     apache2 \
     apache2-ctl \
@@ -22,10 +20,9 @@ RUN docker-php-ext-install mysqli pdo_mysql mbstring exif pcntl pdo bcmath
 RUN docker-php-ext-configure gd --with-gd --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
 RUN docker-php-ext-install gd
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-RUN curl -LJO https://github.com/Leantime/leantime/releases/download/v2.1/Leantime-V2.1.tar.gz && \
-    tar -zxvf Leantime-V2.1.tar.gz --strip-components 1
+RUN curl -LJO https://github.com/Leantime/leantime/releases/download/v${LEAN_VERSION}/Leantime-V${LEAN_VERSION}.tar.gz && \
+    tar -zxvf Leantime-V${LEAN_VERSION}.tar.gz --strip-components 1 && \
+    rm Leantime-V${LEAN_VERSION}.tar.gz
 
 RUN chown www-data -R .
 
