@@ -7,7 +7,6 @@ Leantime is an open source project management system for small teams and startup
 
 This is the official <a href="https://hub.docker.com/r/leantime/leantime">Docker image for Leantime</a>. It was built using the <a href="https://github.com/Leantime/leantime/releases">latest Leantime release</a>.
 
-
 ## How to use this image
 
 To run this image you will need an existing MySQL database. 
