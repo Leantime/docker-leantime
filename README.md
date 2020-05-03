@@ -17,9 +17,10 @@ docker run -d -p 80:80
 -e LEAN_DB_USER=admin \
 -e LEAN_DB_PASSWORD=321.qwerty \
 -e LEAN_DB_DATABASE=leantime \
+-v /path/to/host/mount:/var/www/html/config \
 --name leantime leantime/leantime:latest
 ```
-You can set any of the config variables in `config/configuration.php` when running the docker command.
+You can set any of the config variables in `/path/to/host/mount/config/configuration.php` when running the docker command.
 
 Once started you can go to `<yourdomain.com>/install` and run the installation script.
 
@@ -52,6 +53,7 @@ docker run -d -p 80:80 --network leantime-net \
 -e LEAN_DB_USER=admin \
 -e LEAN_DB_PASSWORD=321.qwerty \
 -e LEAN_DB_DATABASE=leantime \
+-v /path/to/host/mount:/var/www/html/config \
 --name leantime leantime/leantime:latest
 ```
 
@@ -66,4 +68,3 @@ git clone https://github.com/Leantime/docker-leantime.git
 cd docker-leantime
 docker-compose up -d
 ```
-
