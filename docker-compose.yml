@@ -19,10 +19,10 @@ services:
      image: leantime/leantime:latest
      container_name: leantime
      environment:
-         DB_HOST: 'mysql_leantime'
-         MYSQL_USER: 'admin'
-         MYSQL_PASSWORD: '321.qwerty'
-         MYSQL_DATABASE: 'leantime'
+         LEAN_DB_HOST: 'mysql_leantime'
+         LEAN_DB_USER: 'admin'
+         LEAN_DB_PASSWORD: '321.qwerty'
+         LEAN_DB_DATABASE: 'leantime'
      ports:
        - "9000:9000"
        - "80:80"
