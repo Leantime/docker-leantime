@@ -56,6 +56,10 @@ docker run -d -p 80:80 --network leantime-net \
 -e LEAN_DB_USER=admin \
 -e LEAN_DB_PASSWORD=321.qwerty \
 -e LEAN_DB_DATABASE=leantime \
+-v path/on/host/config:/var/www/html/config \
+-v path/on/host/public_userfiles:/var/www/html/public/userfiles \
+-v path/on/host/userfiles:/var/www/html/userfiles \
+-v path/on/host/logs:/var/www/html/resources/logs \
 --name leantime leantime/leantime:latest
 ```
 
