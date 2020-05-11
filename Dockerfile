@@ -3,6 +3,10 @@ FROM php:7.2-fpm-alpine
 ARG LEAN_VERSION=2.1.1
 
 WORKDIR /var/www/html
+VOLUME ["/var/www/html/config", \
+        "/var/www/html/public/userfiles", \
+        "/var/www/html/userfiles", \
+        "/var/www/html/public/userfiles"]
 
 # Install dependencies
 RUN apk update && apk add --no-cache \
