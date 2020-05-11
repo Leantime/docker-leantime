@@ -6,7 +6,7 @@ WORKDIR /var/www/html
 VOLUME ["/var/www/html/config", \
         "/var/www/html/public/userfiles", \
         "/var/www/html/userfiles", \
-        "/var/www/html/public/userfiles"]
+        "/var/www/html/resources/logs"]
 
 # Install dependencies
 RUN apk update && apk add --no-cache \
