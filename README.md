@@ -10,6 +10,8 @@ This is the official <a href="https://hub.docker.com/r/leantime/leantime">Docker
 ## How to use this image
 
 To run this image you will need an existing MySQL database. 
+Replace <path/on/host> with the path on the host container
+where you want to persist config and log related data.
 
 ```
 docker run -d -p 80:80
@@ -17,6 +19,10 @@ docker run -d -p 80:80
 -e LEAN_DB_USER=admin \
 -e LEAN_DB_PASSWORD=321.qwerty \
 -e LEAN_DB_DATABASE=leantime \
+-v <path/on/host>/config:/var/www/html/config \
+-v <path/on/host>/public_userfiles:/var/www/html/public/userfiles \
+-v <path/on/host>/userfiles:/var/www/html/userfiles \
+-v <path/on/host>/logs:/var/www/html/resources/logs \
 --name leantime leantime/leantime:latest
 ```
 You can set any of the config variables in `config/configuration.php` when running the docker command.
@@ -44,7 +50,9 @@ docker run -d -p 3306:3306 --network leantime-net \
 --name mysql_leantime mysql:5.7 --character-set-server=utf8 --collation-server=utf8_unicode_ci
 ```
 
-3. Create the Leantime container.
+3. Create the Leantime container. Replace <path/on/host> 
+with the path on the host container where you want to 
+persist config and log related data.
 
 ```
 docker run -d -p 80:80 --network leantime-net \
@@ -52,6 +60,10 @@ docker run -d -p 80:80 --network leantime-net \
 -e LEAN_DB_USER=admin \
 -e LEAN_DB_PASSWORD=321.qwerty \
 -e LEAN_DB_DATABASE=leantime \
+-v <path/on/host>/config:/var/www/html/config \
+-v <path/on/host>/public_userfiles:/var/www/html/public/userfiles \
+-v <path/on/host>/userfiles:/var/www/html/userfiles \
+-v <path/on/host>/logs:/var/www/html/resources/logs \
 --name leantime leantime/leantime:latest
 ```
 
