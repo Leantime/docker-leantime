@@ -18,11 +18,6 @@ services:
    web:
      image: leantime/leantime:latest
      container_name: leantime
-     volumes:
-       - config_data:/var/www/html/config
-       - public_userfiles_data:/var/www/html/public/userfiles
-       - userfiles_data:/var/www/html/userfiles
-       - logs_data:/var/www/html/resources/logs
      environment:
          LEAN_DB_HOST: 'mysql_leantime'
          LEAN_DB_USER: 'admin'
@@ -35,7 +30,3 @@ services:
        - db
 volumes:
     db_data: {}
-    config_data: {}
-    public_userfiles_data: {}
-    userfiles_data: {}
-    logs_data: {}
