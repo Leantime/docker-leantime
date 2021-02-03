@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine
+FROM docker.io/library/php:7.2-fpm-alpine
 
 ARG LEAN_VERSION=2.1.6
 
@@ -38,6 +38,9 @@ COPY config/app.conf  /etc/apache2/conf.d/app.conf
 RUN sed -i '/LoadModule rewrite_module/s/^#//g' /etc/apache2/httpd.conf && \
     sed -i 's#AllowOverride [Nn]one#AllowOverride All#' /etc/apache2/httpd.conf && \
     sed -i '$iLoadModule proxy_module modules/mod_proxy.so' /etc/apache2/httpd.conf
+
+RUN mkdir -p "/sessions" && chown www-data:www-data /sessions && chmod 0777 /sessions
+VOLUME [ "/sessions" ]
 
 # Expose port 9000 and start php-fpm server
 ENTRYPOINT ["/start.sh"]
