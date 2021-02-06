@@ -1,5 +1,6 @@
 FROM php:7.2-fpm-alpine
 
+#Change version to trigger build
 ARG LEAN_VERSION=2.1.7
 
 WORKDIR /var/www/html
