@@ -66,4 +66,3 @@ git clone https://github.com/Leantime/docker-leantime.git
 cd docker-leantime
 docker-compose up -d
 ```
-
