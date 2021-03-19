@@ -4,6 +4,7 @@ FROM docker.io/library/php:7.2-fpm-alpine
 ARG LEAN_VERSION=2.1.7
 
 WORKDIR /var/www/html
+WORKDIR /app
 
 # Install dependencies
 RUN apk update && apk add --no-cache \
@@ -42,6 +43,9 @@ RUN sed -i '/LoadModule rewrite_module/s/^#//g' /etc/apache2/httpd.conf && \
 
 RUN mkdir -p "/sessions" && chown www-data:www-data /sessions && chmod 0777 /sessions
 VOLUME [ "/sessions" ]
+VOLUME [ "/var/www/html/config" ]
+VOLUME [ "/var/www/html/public/userfiles" ]
+VOLUME [ "/var/www/html/userfiles" ]
 
 # Expose port 9000 and start php-fpm server
 ENTRYPOINT ["/start.sh"]
