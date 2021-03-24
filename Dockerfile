@@ -25,7 +25,8 @@ RUN curl -LJO https://github.com/Leantime/leantime/releases/download/v${LEAN_VER
     tar -zxvf Leantime-v${LEAN_VERSION}.tar.gz --strip-components 1 && \
     rm Leantime-v${LEAN_VERSION}.tar.gz
 
-RUN chown www-data -R .
+RUN cp -r ./* /var/www/html/
+RUN chown www-data -R /var/www/html
 
 COPY ./start.sh /start.sh
 RUN chmod +x /start.sh
