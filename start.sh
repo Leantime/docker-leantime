@@ -1,5 +1,6 @@
 #!/bin/sh
 
+SRC_DIR="/app"
 APP_DIR="/var/www/html"
 CONFIG="/var/www/html/config/configuration.php"
 
@@ -7,7 +8,9 @@ if [ -f "$CONFIG" ]; then
     echo "Config file already exists!"
 else
     echo "Creating configuration file!"
+    cp -r $SRC_DIR/* $APP_DIR/
     cd $APP_DIR
+    chown www-data -R .
     cp config/configuration.sample.php ${CONFIG}
 
     if [ -z "$LEAN_SESSION_PASSWORD" ]; then

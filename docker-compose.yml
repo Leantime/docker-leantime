@@ -3,6 +3,8 @@ version: '3.3'
 services:
    db:
      image: mysql:5.7
+     #raspberry pi/arm users can use this image
+     #image: beercan1989/arm-mysql:5.7
      container_name: mysql_leantime
      volumes:
        - db_data:/var/lib/mysql
@@ -26,7 +28,16 @@ services:
      ports:
        - "9000:9000"
        - "80:80"
+     volumes:
+       - lean_config:/var/www/html/config
+       - lean_pub_user:/var/www/html/public/userfiles
+       - lean_user:/var/www/html/userfiles
+       - lean_sessions:/sessions
      depends_on:
        - db
 volumes:
-    db_data: {}
+    db_data:
+    lean_sessions:
+    lean_config:
+    lean_pub_user:
+    lean_user:
