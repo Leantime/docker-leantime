@@ -26,4 +26,4 @@ jobs:
       run: docker build . --file Dockerfile --tag leantime/leantime:${{ github.event.inputs.tag }}
       
     - name: Docker Push
-      run: docker push leantime/leantime
+      run: docker push leantime/leantime:${{ github.event.inputs.tag }}
