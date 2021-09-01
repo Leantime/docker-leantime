@@ -13,6 +13,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
+    - name: 'Get Previous tag'
+      id: previoustag
+      uses: "WyriHaximus/github-action-get-previous-tag@v1"
+      with:
+        fallback: latest
+          
     - name: Docker login
       run: |
         docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
