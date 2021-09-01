@@ -2,6 +2,11 @@ name: Docker
 
 on:
   workflow_dispatch: 
+    inputs: 
+      tag:
+        description: "Tag"
+        required: true
+        
 
       
 jobs:
@@ -12,19 +17,13 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-    
-    - name: 'Get Previous tag'
-      id: previoustag
-      uses: "WyriHaximus/github-action-get-previous-tag@v1"
-      with:
-        fallback: latest
-          
+              
     - name: Docker login
       run: |
         docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
     
     - name: Build image
-      run: docker build . --file Dockerfile --tag leantime/leantime:latest
+      run: docker build . --file Dockerfile --tag leantime/leantime:${{ github.event.inputs.tag }}
       
     - name: Docker Push
       run: docker push leantime/leantime
