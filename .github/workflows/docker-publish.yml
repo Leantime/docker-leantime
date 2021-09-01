@@ -1,0 +1,25 @@
+name: Docker
+
+on:
+  push: 
+      branches: [ master ]
+  pull_request:
+      branches: [ master ]
+      
+jobs:
+
+  build:
+  
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker login
+      run: |
+        docker login - u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
+    
+    - name: Build image
+      run: docker build . --file Dockerfile -- tag leantime/leantime:latest
+      
+    - name: Docker Push
+      run: docker push leantime/leantime
