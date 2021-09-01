@@ -19,7 +19,7 @@ jobs:
         docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
     
     - name: Build image
-      run: docker build . --file Dockerfile -- tag leantime/leantime:latest
+      run: docker build . --file Dockerfile --tag leantime/leantime:latest
       
     - name: Docker Push
       run: docker push leantime/leantime
