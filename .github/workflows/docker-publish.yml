@@ -1,10 +1,8 @@
 name: Docker
 
 on:
-  push: 
-      branches: [ master ]
-  pull_request:
-      branches: [ master ]
+  workflow_dispatch: 
+
       
 jobs:
 
@@ -14,6 +12,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
+    
     - name: Docker login
       run: |
         docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
