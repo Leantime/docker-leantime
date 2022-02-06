@@ -66,3 +66,18 @@ git clone https://github.com/Leantime/docker-leantime.git
 cd docker-leantime
 docker-compose up -d
 ```
+
+## Docker secrets
+
+As an alternative to passing sensitive information via environment variables, `_FILE` may be appended to the environment variables listed below, causing the initialization script to load the values for those variables from files present in the container. In particular, this can be used to load passwords from Docker secrets stored in `/run/secrets/<secret_name>` files. For example:
+
+```
+docker run -d -p 80:80 --network leantime-net \
+-e LEAN_DB_HOST=mysql_leantime \
+-e LEAN_DB_USER=admin \
+-e LEAN_DB_PASSWORD_FILE=/run/secrets/lean-db-password \
+-e LEAN_DB_DATABASE=leantime \
+--name leantime leantime/leantime:latest
+```
+
+Currently, this is only supported for `LEAN_DB_PASSWORD`, `LEAN_EMAIL_SMTP_PASSWORD`, `LEAN_S3_SECRET`, and `LEAN_SESSION_PASSWORD`.
