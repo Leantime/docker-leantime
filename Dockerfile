@@ -18,7 +18,7 @@ RUN apk update && apk add --no-cache \
 
 # Installing extensions
 RUN docker-php-ext-install mysqli pdo_mysql mbstring exif pcntl pdo bcmath
-RUN docker-php-ext-configure gd --with-gd --with-jpeg-dir=/usr/include/
+RUN docker-php-ext-configure gd --with-gd --with-jpeg=/usr/include/ --with-png=/usr/include/
 RUN docker-php-ext-install gd
 
 RUN curl -LJO https://github.com/Leantime/leantime/releases/download/v${LEAN_VERSION}/Leantime-v${LEAN_VERSION}.tar.gz && \
