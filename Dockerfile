@@ -8,7 +8,7 @@ WORKDIR /var/www/html
 # Install dependencies
 RUN apk update && apk add --no-cache \
     mysql-client \
-    freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev \
+    freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev libonig-dev \
     icu-libs \
     jpegoptim optipng pngquant gifsicle \
     supervisor \
@@ -17,7 +17,7 @@ RUN apk update && apk add --no-cache \
     apache2-proxy
 
 # Installing extensions
-RUN docker-php-ext-install mysqli pdo_mysql libonig-dev mbstring exif pcntl pdo bcmath
+RUN docker-php-ext-install mysqli pdo_mysql mbstring exif pcntl pdo bcmath
 RUN docker-php-ext-configure gd --with-gd --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
 RUN docker-php-ext-install gd
 
