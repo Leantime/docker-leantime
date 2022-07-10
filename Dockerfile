@@ -8,7 +8,7 @@ WORKDIR /var/www/html
 # Install dependencies
 RUN apk update && apk add --no-cache \
     mysql-client \
-    freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev libonig-dev \
+    freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev oniguruma-dev \
     icu-libs \
     jpegoptim optipng pngquant gifsicle \
     supervisor \
