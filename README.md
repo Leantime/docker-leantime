@@ -1,7 +1,7 @@
 
 <img src="https://leantime.io/logos/leantime-logo-transparentBg-landscape-1500.png" width="400"/>
 
-# Leantime&trade; Docker#
+# Leantime&trade; Docker
 
 ![License Badge](https://img.shields.io/github/license/leantime/leantime?style=flat-square) 
 ![Version](https://img.shields.io/github/package-json/v/leantime/leantime/master?style=flat-square)
