@@ -1,7 +1,13 @@
 
 <img src="https://leantime.io/logos/leantime-logo-transparentBg-landscape-1500.png" width="400"/>
 
-# Leantime Docker #
+# Leantime&trade; Docker#
+
+![License Badge](https://img.shields.io/github/license/leantime/leantime?style=flat-square) 
+![Version](https://img.shields.io/github/package-json/v/leantime/leantime/master?style=flat-square)
+![Docker Hub Badge](https://img.shields.io/docker/pulls/leantime/leantime?style=flat-square)
+<a href="https://discord.gg/4zMzJtAq9z">![Discord Badge](https://img.shields.io/discord/990001288026677318?label=Discord&style=flat-square)</a>
+<br />
 
 Leantime is an open source project management system for small teams and startups written in PHP, Javascript using MySQL. [https://leantime.io](https://leantime.io)
 
@@ -81,3 +87,9 @@ docker run -d -p 80:80 --network leantime-net \
 ```
 
 Currently, this is only supported for `LEAN_DB_PASSWORD`, `LEAN_EMAIL_SMTP_PASSWORD`, `LEAN_S3_SECRET`, and `LEAN_SESSION_PASSWORD`.
+
+### Support ###
+* Documentation [https://docs.leantime.io](https://docs.leantime.io)
+* Community Forum [https://community.leantime.io](https://community.leantime.io)
+* Discussions on [Discord](https://discord.gg/4zMzJtAq9z)
+* File a bug report [https://github.com/Leantime/leantime/issues/new](https://github.com/Leantime/leantime/issues/new)
