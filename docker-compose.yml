@@ -1,29 +1,40 @@
 version: '3.3'
 
 services:
-   db:
-     image: mysql:5.7
-     container_name: mysql_leantime
-     volumes:
-       - db_data:/var/lib/mysql
-     restart: always
-     environment:
-         MYSQL_ROOT_PASSWORD: '321.qwerty'
-         MYSQL_DATABASE: 'leantime'
-         MYSQL_USER: 'admin'
-         MYSQL_PASSWORD: '321.qwerty'
-     command: --character-set-server=utf8 --collation-server=utf8_unicode_ci
-   web:
-     image: leantime/leantime:latest
-     container_name: leantime
-     environment:
-         LEAN_DB_HOST: 'mysql_leantime'
-         LEAN_DB_USER: 'admin'
-         LEAN_DB_PASSWORD: '321.qwerty'
-         LEAN_DB_DATABASE: 'leantime'
-     ports:
-       - "80:80"
-     depends_on:
-       - db
+  leantime_db:
+    image: mysql:5.7
+    container_name: mysql_leantime
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: '321.qwerty'
+      MYSQL_DATABASE: 'leantime'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: '321.qwerty'
+    command: --character-set-server=utf8 --collation-server=utf8_unicode_ci
+
+  leantime:
+    image: leantime/leantime:latest
+    container_name: leantime
+    environment:
+      LEAN_APP_URL: 'https://leantime.domain.com' #Base URL, trailing slash not needed (Optional)
+      LEAN_SITENAME: 'Leantime' #Name of your site, can be changed later
+      LEAN_USER_FILE_PATH: 'userfiles/' # When storing userfiles localy
+      LEAN_DB_HOST: 'mysql_leantime'
+      LEAN_DB_USER: 'admin'
+      LEAN_DB_PASSWORD: '321.qwerty'
+      LEAN_DB_DATABASE: 'leantime'
+      LEAN_DEFAULT_TIMEZONE: 'Europe/Stockholm' #Set default timezone
+      LEAN_SESSION_PASSWORD: 'GD8Fozemg3AqM9my86TTfgTeGPXXkPF7' #Salting sessions. Replace with a strong password
+      LEAN_SESSION_EXPIRATION: 28800 #How many seconds after inactivity should we logout?  28800seconds = 8hours
+    volumes:
+      - userfiles:/var/www/html/public/userfiles
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
 volumes:
-    db_data: {}
+  db_data: {}
+  userfiles: {}
