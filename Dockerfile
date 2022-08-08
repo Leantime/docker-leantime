@@ -17,10 +17,11 @@ RUN apk update && apk add --no-cache \
     apache2-proxy
 
 # Installing extensions
-RUN docker-php-ext-install mysqli pdo_mysql mbstring exif pcntl pdo bcmath
+RUN docker-php-ext-install mysqli pdo_mysql mbstring exif pcntl pdo bcmath opcache
 RUN docker-php-ext-configure gd --enable-gd --with-jpeg=/usr/include/ --with-freetype --with-jpeg
 RUN docker-php-ext-install gd
 
+#Installing Leantime
 RUN curl -LJO https://github.com/Leantime/leantime/releases/download/v${LEAN_VERSION}/Leantime-v${LEAN_VERSION}.tar.gz && \
     tar -zxvf Leantime-v${LEAN_VERSION}.tar.gz --strip-components 1 && \
     rm Leantime-v${LEAN_VERSION}.tar.gz
