@@ -33,7 +33,7 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - db
+      - leantime_db
 
 volumes:
   db_data: {}
