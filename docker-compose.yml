@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   leantime_db:
-    image: mysql:5.7
+    image: mysql:latest
     container_name: mysql_leantime
     volumes:
       - db_data:/var/lib/mysql
@@ -18,23 +18,24 @@ services:
     image: leantime/leantime:latest
     container_name: leantime
     environment:
-      LEAN_APP_URL: 'https://leantime.domain.com' #Base URL, trailing slash not needed (Optional)
-      LEAN_SITENAME: 'Leantime' #Name of your site, can be changed later
-      LEAN_USER_FILE_PATH: 'userfiles/' # When storing userfiles localy
-      LEAN_DB_HOST: 'mysql_leantime'
+      # LEAN_APP_URL: 'https://domain.com/leantime'                     # Only needed for subdirectory setup; protocol (http or https) and base URL , trailing slash not needed
+      LEAN_SITENAME: 'Leantime'                                         # Name of your site, can be changed later
+      LEAN_DB_HOST: 'mysql_leantime'                                    # Database host, derived from container_name in leantime_db container
       LEAN_DB_USER: 'admin'
       LEAN_DB_PASSWORD: '321.qwerty'
       LEAN_DB_DATABASE: 'leantime'
-      LEAN_DEFAULT_TIMEZONE: 'Europe/Stockholm' #Set default timezone
-      LEAN_SESSION_PASSWORD: 'GD8Fozemg3AqM9my86TTfgTeGPXXkPF7' #Salting sessions. Replace with a strong password
-      LEAN_SESSION_EXPIRATION: 28800 #How many seconds after inactivity should we logout?  28800seconds = 8hours
+      LEAN_DEFAULT_TIMEZONE: 'Europe/Stockholm'                         # Set default server timezone
+      LEAN_SESSION_PASSWORD: 'GD8Fozemg3AqM9my86TTfgTeGPXXkPF7'         # Salting sessions. Replace with a strong password
+      LEAN_SESSION_EXPIRATION: 28800                                    # How many seconds after inactivity should we logout?  28800seconds = 8hours
     volumes:
-      - userfiles:/var/www/html/public/userfiles
+      - public_userfiles:/var/www/html/public/userfiles
+      - userfiles:/var/www/html/userfiles
     ports:
-      - "8080:80"
+      - "8080:80"                                                       # The port to expose and access Leantime
     depends_on:
-      - db
+      - leantime_db                                                     # Don't start Leantime unles leantime_db is running
 
 volumes:
-  db_data: {}
-  userfiles: {}
+  db_data:
+  userfiles:
+  public_userfiles:
