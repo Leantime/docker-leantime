@@ -17,6 +17,7 @@ services:
   leantime:
     image: leantime/leantime:latest
     container_name: leantime
+    restart: always
     environment:
       LEAN_APP_URL: 'https://leantime.domain.com' #Base URL, trailing slash not needed (Optional)
       LEAN_SITENAME: 'Leantime' #Name of your site, can be changed later
