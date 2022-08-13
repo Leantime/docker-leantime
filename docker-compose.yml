@@ -6,7 +6,7 @@ services:
     container_name: mysql_leantime
     volumes:
       - db_data:/var/lib/mysql
-    restart: always
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: '321.qwerty'
       MYSQL_DATABASE: 'leantime'
@@ -17,6 +17,7 @@ services:
   leantime:
     image: leantime/leantime:latest
     container_name: leantime
+    restart: unless-stopped
     environment:
       # LEAN_APP_URL: 'https://domain.com/leantime'                     # Only needed for subdirectory setup; protocol (http or https) and base URL , trailing slash not needed
       LEAN_SITENAME: 'Leantime'                                         # Name of your site, can be changed later
