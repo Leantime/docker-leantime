@@ -18,7 +18,7 @@ This is the official <a href="https://hub.docker.com/r/leantime/leantime">Docker
 To run this image you will need an existing MySQL database. 
 
 ```
-docker run -d -p 80:80
+docker run -d --restart unless-stopped -p 80:80
 -e LEAN_DB_HOST=mysql_leantime \
 -e LEAN_DB_USER=admin \
 -e LEAN_DB_PASSWORD=321.qwerty \
@@ -42,18 +42,18 @@ docker network create leantime-net
 2. Create the MySQL container.
 
 ```
-docker run -d -p 3306:3306 --network leantime-net \
+docker run -d --restart unless-stopped -p 3306:3306 --network leantime-net \
 -e MYSQL_ROOT_PASSWORD=321.qwerty \
 -e MYSQL_DATABASE=leantime \
 -e MYSQL_USER=admin \
 -e MYSQL_PASSWORD=321.qwerty \
---name mysql_leantime mysql:5.7 --character-set-server=utf8 --collation-server=utf8_unicode_ci
+--name mysql_leantime mysql:8.0 --character-set-server=utf8 --collation-server=utf8_unicode_ci
 ```
 
 3. Create the Leantime container.
 
 ```
-docker run -d -p 80:80 --network leantime-net \
+docker run -d --restart unless-stopped -p 80:80 --network leantime-net \
 -e LEAN_DB_HOST=mysql_leantime \
 -e LEAN_DB_USER=admin \
 -e LEAN_DB_PASSWORD=321.qwerty \
@@ -78,7 +78,7 @@ docker-compose up -d
 As an alternative to passing sensitive information via environment variables, `_FILE` may be appended to the environment variables listed below, causing the initialization script to load the values for those variables from files present in the container. In particular, this can be used to load passwords from Docker secrets stored in `/run/secrets/<secret_name>` files. For example:
 
 ```
-docker run -d -p 80:80 --network leantime-net \
+docker run -d --restart unless-stopped -p 80:80 --network leantime-net \
 -e LEAN_DB_HOST=mysql_leantime \
 -e LEAN_DB_USER=admin \
 -e LEAN_DB_PASSWORD_FILE=/run/secrets/lean-db-password \
