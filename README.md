@@ -3,10 +3,10 @@
 
 # Leantime&trade; Docker
 
-![License Badge](https://img.shields.io/github/license/leantime/leantime?style=flat-square) 
-![Version](https://img.shields.io/github/package-json/v/leantime/leantime/master?style=flat-square)
-![Docker Hub Badge](https://img.shields.io/docker/pulls/leantime/leantime?style=flat-square)
-<a href="https://discord.gg/4zMzJtAq9z">![Discord Badge](https://img.shields.io/discord/990001288026677318?label=Discord&style=flat-square)</a>
+[![License Badge](https://img.shields.io/github/license/leantime/leantime?style=flat-square)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+[![Version](https://img.shields.io/github/package-json/v/leantime/leantime/master?style=flat-square)](https://github.com/Leantime/leantime/releases)
+[![Docker Hub Badge](https://img.shields.io/docker/pulls/leantime/leantime?style=flat-square)](https://hub.docker.com/r/leantime/leantime)
+[![Discord Badge](https://img.shields.io/discord/990001288026677318?label=Discord&style=flat-square)](https://discord.gg/4zMzJtAq9z)
 <br />
 
 Leantime is an open source project management system for small teams and startups written in PHP, Javascript using MySQL. [https://leantime.io](https://leantime.io)
