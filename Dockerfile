@@ -8,6 +8,7 @@ WORKDIR /var/www/html
 # Install dependencies
 RUN apk update && apk add --no-cache \
     mysql-client \
+    openldap-dev\
     freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev oniguruma-dev \
     icu-libs \
     jpegoptim optipng pngquant gifsicle \
@@ -18,6 +19,7 @@ RUN apk update && apk add --no-cache \
 
 # Installing extensions
 RUN docker-php-ext-install mysqli pdo_mysql mbstring exif pcntl pdo bcmath opcache ldap
+
 RUN docker-php-ext-configure gd --enable-gd --with-jpeg=/usr/include/ --with-freetype --with-jpeg
 RUN docker-php-ext-install gd
 
