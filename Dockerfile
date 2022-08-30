@@ -49,3 +49,5 @@ VOLUME [ "/sessions" ]
 # Expose port 9000 and start php-fpm server
 ENTRYPOINT ["/start.sh"]
 EXPOSE 80
+
+
