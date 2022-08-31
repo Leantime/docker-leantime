@@ -17,13 +17,19 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
+    
+    - name: install buildx
+      id: buildx
+      uses: crazy-max/ghaction-docker-buildx@v1
+      with:
+        version: latest
               
     - name: Docker login
       run: |
         docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
     
     - name: Build image
-      run: docker build . --file Dockerfile --tag leantime/leantime:${{ github.event.inputs.tag }}
+      run: docker buildx build --file Dockerfile --platform linux/amd64,linux/arm/v7,linux/arm64 --tag leantime/leantime:${{ github.event.inputs.tag }} .
       
     - name: Docker Push
       run: docker push leantime/leantime:${{ github.event.inputs.tag }}
