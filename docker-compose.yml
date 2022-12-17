@@ -34,7 +34,7 @@ services:
     ports:
       - "8080:80"                                                       # The port to expose and access Leantime
     depends_on:
-      - leantime_db                                                     # Don't start Leantime unles leantime_db is running
+      - leantime_db                                                     # Don't start Leantime unless leantime_db is running
 
 volumes:
   db_data:
