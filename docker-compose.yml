@@ -8,10 +8,10 @@ services:
       - db_data:/var/lib/mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: '321.qwerty'
-      MYSQL_DATABASE: 'leantime'
-      MYSQL_USER: 'admin'
-      MYSQL_PASSWORD: '321.qwerty'
+      - MYSQL_ROOT_PASSWORD=${LEAN_SQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${LEAN_DB_DATABASE}
+      - MYSQL_USER=${LEAN_DB_USER}
+      - MYSQL_PASSWORD=${LEAN_DB_PASSWORD}
     command: --character-set-server=utf8 --collation-server=utf8_unicode_ci
 
   leantime:
@@ -19,22 +19,23 @@ services:
     container_name: leantime
     restart: unless-stopped
     environment:
-      # LEAN_APP_URL: 'https://domain.com/leantime'                     # Only needed for subdirectory setup; protocol (http or https) and base URL , trailing slash not needed
-      LEAN_SITENAME: 'Leantime'                                         # Name of your site, can be changed later
-      LEAN_DB_HOST: 'mysql_leantime'                                    # Database host, derived from container_name in leantime_db container
-      LEAN_DB_USER: 'admin'
-      LEAN_DB_PASSWORD: '321.qwerty'
-      LEAN_DB_DATABASE: 'leantime'
-      LEAN_DEFAULT_TIMEZONE: 'Europe/Stockholm'                         # Set default server timezone
-      LEAN_SESSION_PASSWORD: 'GD8Fozemg3AqM9my86TTfgTeGPXXkPF7'         # Salting sessions. Replace with a strong password
-      LEAN_SESSION_EXPIRATION: 28800                                    # How many seconds after inactivity should we logout?  28800seconds = 8hours
+      - LEAN_DB_HOST=mysql_leantime
+      - LEAN_APP_URL=${LEAN_APP_URL}
+      - LEAN_SITENAME=${LEAN_SITENAME}
+      - LEAN_DB_USER=${LEAN_DB_USER}
+      - LEAN_DB_PASSWORD=${LEAN_DB_PASSWORD}
+      - LEAN_DB_DATABASE=${LEAN_DB_DATABASE}
+      - LEAN_DEFAULT_TIMEZONE=${LEAN_DEFAULT_TIMEZONE}
+      - LEAN_SESSION_PASSWORD=${LEAN_SESSION_PASSWORD}
+      - LEAN_SESSION_EXPIRATION=${LEAN_SESSION_EXPIRATION}
     volumes:
       - public_userfiles:/var/www/html/public/userfiles
       - userfiles:/var/www/html/userfiles
     ports:
-      - "8080:80"                                                       # The port to expose and access Leantime
+      - "${LEAN_PORT}:80"
     depends_on:
-      - leantime_db                                                     # Don't start Leantime unless leantime_db is running
+      # Don't start Leantime unless leantime_db is running
+      - leantime_db
 
 volumes:
   db_data:

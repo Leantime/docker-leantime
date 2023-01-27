@@ -67,9 +67,11 @@ docker run -d --restart unless-stopped -p 80:80 --network leantime-net \
 
 One command install with docker-compose.
 
-```
+```sh
 git clone https://github.com/Leantime/docker-leantime.git
 cd docker-leantime
+cp sample.env .env
+nano .env    # Change the secrets for security
 docker-compose up -d
 ```
 

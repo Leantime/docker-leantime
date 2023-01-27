@@ -1,4 +1,3 @@
-.git
+.env
 .vscode
 .DS_store
-.env
