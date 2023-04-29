@@ -7,36 +7,30 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: '321.qwerty'
-      MYSQL_DATABASE: 'leantime'
-      MYSQL_USER: 'admin'
-      MYSQL_PASSWORD: '321.qwerty'
+    env_file: ./.env                                        # Environment file with settings
+    networks:
+      - leantime-net
     command: --character-set-server=UTF8MB4 --collation-server=UTF8MB4_unicode_ci
 
   leantime:
     image: leantime/leantime:latest
     container_name: leantime
     restart: unless-stopped
-    environment:
-      # LEAN_APP_URL: 'https://domain.com/leantime'                     # Only needed for subdirectory setup; protocol (http or https) and base URL , trailing slash not needed
-      LEAN_SITENAME: 'Leantime'                                         # Name of your site, can be changed later
-      LEAN_DB_HOST: 'mysql_leantime'                                    # Database host, derived from container_name in leantime_db container
-      LEAN_DB_USER: 'admin'
-      LEAN_DB_PASSWORD: '321.qwerty'
-      LEAN_DB_DATABASE: 'leantime'
-      LEAN_DEFAULT_TIMEZONE: 'Europe/Stockholm'                         # Set default server timezone
-      LEAN_SESSION_PASSWORD: 'GD8Fozemg3AqM9my86TTfgTeGPXXkPF7'         # Salting sessions. Replace with a strong password
-      LEAN_SESSION_EXPIRATION: 28800                                    # How many seconds after inactivity should we logout?  28800seconds = 8hours
+    env_file: ./.env                                        # Environment file with settings
+    networks:
+      - leantime-net
     volumes:
-      - public_userfiles:/var/www/html/public/userfiles
-      - userfiles:/var/www/html/userfiles
+      - public_userfiles:/var/www/html/public/userfiles     # Volume to store public files, logo etc
+      - userfiles:/var/www/html/userfiles                   # Volume to store private user uploaded files
     ports:
-      - "8080:80"                                                       # The port to expose and access Leantime
+      - "8080:80"                                           # The port to expose and access Leantime
     depends_on:
-      - leantime_db                                                     # Don't start Leantime unless leantime_db is running
+      - leantime_db                                         # Don't start Leantime unless leantime_db is running
 
 volumes:
   db_data:
   userfiles:
   public_userfiles:
+
+networks:
+  leantime-net:
