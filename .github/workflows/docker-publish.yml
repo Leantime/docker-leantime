@@ -16,13 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: install buildx
-      id: buildx
-      uses: crazy-max/ghaction-docker-buildx@v1
-      with:
-        version: latest
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
               
     - name: Docker login
       run: |
@@ -30,5 +25,5 @@ jobs:
     
     - name: Build & Push Image
       run: |
-        docker buildx build --file Dockerfile --platform linux/amd64,linux/arm/v7,linux/arm64 --output "type=image,push=true" --tag leantime/leantime:${{ github.event.inputs.tag }} .
+        docker build . --file Dockerfile --platform linux/amd64,linux/arm/v7,linux/arm64 --output "type=image,push=true" --tag leantime/leantime:${{ github.event.inputs.tag }} .
       
