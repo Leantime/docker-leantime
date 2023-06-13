@@ -27,7 +27,10 @@ jobs:
          docker buildx create --platform linux/amd64
          docker buildx create --platform linux/arm64,linux/arm/v8
     
-    - name: Build & Push Image
+    - name: Build & Push linux/amd64
       run: |
-        docker buildx build --file Dockerfile --platform linux/amd64,linux/arm/v8,linux/arm64 --output "type=image,push=true" --tag leantime/leantime:${{ github.event.inputs.tag }} .
+        docker buildx --use $(docker buildx create --platform linux/amd64) build --file Dockerfile --platform linux/amd64 --output "type=image,push=true" --tag leantime/leantime:${{ github.event.inputs.tag }} .
       
+    - name: Build & Push linux/amd64
+      run: |
+        docker buildx --use $(docker buildx create --platform linux/arm64,linux/arm/v8) build --file Dockerfile --platform linux/arm/v8,linux/arm64 --output "type=image,push=true" --tag leantime/leantime:${{ github.event.inputs.tag }} .
