@@ -21,6 +21,10 @@ jobs:
     - name: Docker login
       run: |
         docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
+       
+    - name: Docker multiplatform prep
+      run: |
+        docker buildx create –use
     
     - name: Build & Push Image
       run: |
