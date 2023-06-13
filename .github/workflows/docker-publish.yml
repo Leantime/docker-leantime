@@ -24,9 +24,10 @@ jobs:
        
     - name: Docker multiplatform prep
       run: |
-        docker buildx create –use
+         docker buildx create --platform linux/amd64
+         docker buildx create --platform linux/arm64,linux/arm/v8
     
     - name: Build & Push Image
       run: |
-        docker buildx build --file Dockerfile --platform linux/amd64,linux/arm/v7,linux/arm64 --output "type=image,push=true" --tag leantime/leantime:${{ github.event.inputs.tag }} .
+        docker buildx build --file Dockerfile --platform linux/amd64,linux/arm/v8,linux/arm64 --output "type=image,push=true" --tag leantime/leantime:${{ github.event.inputs.tag }} .
       
