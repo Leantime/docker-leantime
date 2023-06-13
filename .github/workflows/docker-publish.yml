@@ -22,15 +22,18 @@ jobs:
       run: |
         docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
        
-    - name: Docker multiplatform prep
+    - name: Docker builder for amd
       run: |
-         docker buildx create --platform linux/amd64
-         docker buildx create --platform linux/arm64,linux/arm/v8
-    
+          docker buildx use $(docker buildx create --platform linux/amd64)
+         
     - name: Build & Push linux/amd64
       run: |
-        docker buildx use $(docker buildx create --platform linux/amd64) build --file Dockerfile --platform linux/amd64 --output "type=image,push=true" --tag leantime/leantime:${{ github.event.inputs.tag }} .
+        docker buildx build --file Dockerfile --platform linux/amd64 --output "type=image,push=true" --tag leantime/leantime:${{ github.event.inputs.tag }} .
       
-    - name: Build & Push linux/arm/v8
+    - name: Docker builder for arm
       run: |
-        docker buildx use $(docker buildx create --platform linux/arm64,linux/arm/v8) build --file Dockerfile --platform linux/arm/v8,linux/arm64 --output "type=image,push=true" --tag leantime/leantime:${{ github.event.inputs.tag }} .
+          docker buildx use $(docker buildx create --platform linux/arm64,linux/arm/v8)
+         
+    - name: Build & Push arm
+      run: |
+        docker buildx build --file Dockerfile --platform linux/arm/v8,linux/arm64 --output "type=image,push=true" --tag leantime/leantime:${{ github.event.inputs.tag }} .
