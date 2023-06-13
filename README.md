@@ -62,6 +62,18 @@ docker run -d --restart unless-stopped -p 80:80 --network leantime-net \
 
 4. Run the installation script at `<yourdomain.com>/install`
 
+## Full Set up with docker-compose
+
+One command install with docker-compose.
+
+```sh
+git clone https://github.com/Leantime/docker-leantime.git
+cd docker-leantime
+cp sample.env .env
+nano .env    # Change the secrets for security
+docker-compose up -d
+```
+
 ## Docker secrets
 
 As an alternative to passing sensitive information via environment variables, `_FILE` may be appended to the environment variables listed below, causing the initialization script to load the values for those variables from files present in the container. In particular, this can be used to load passwords from Docker secrets stored in `/run/secrets/<secret_name>` files. For example:
