@@ -14,32 +14,31 @@ Leantime is an open source project management system for small teams and startup
 This is the official <a href="https://hub.docker.com/r/leantime/leantime">Docker image for Leantime</a>. It was built using the <a href="https://github.com/Leantime/leantime/releases">latest Leantime release</a>.
 
 ## How to use this image
+Bellow you will find examples on how to get started with Leantime trough `docker run` or `docker compose`.
 
-To run this image you will need an existing MySQL database. 
+### Full Set up with docker-compose
+
+One command install with docker compose.
 
 ```
-docker run -d --restart unless-stopped -p 80:80
--e LEAN_DB_HOST=mysql_leantime \
--e LEAN_DB_USER=admin \
--e LEAN_DB_PASSWORD=321.qwerty \
--e LEAN_DB_DATABASE=leantime \
---name leantime leantime/leantime:latest
+git clone https://github.com/Leantime/docker-leantime.git
+cd docker-leantime
+cp sample.env .env
+docker compose up -d
 ```
-You can set any of the config variables in `config/configuration.php` when running the docker command.
 
-Once started you can go to `<yourdomain.com>/install` and run the installation script.
+Dont forget to update the `.env` file for production.
 
-## Full set up with MySQL and network
+### Full set up with docker run
 
-If you don't have a MySQL database set up and would like to create a container follow these instruction.
-
-1. Create the network so Leantime can communicate with the MySql container.
+#### 1. Create the network so Leantime can communicate with the MySql container.
 
 ```
 docker network create leantime-net
 ```
 
-2. Create the MySQL container.
+#### 2. Create the MySQL container.
+If you don't have a MySQL database set up and would like to create a container follow these instruction, otherwise jump to step 3.
 
 ```
 docker run -d --restart unless-stopped -p 3306:3306 --network leantime-net \
@@ -47,10 +46,10 @@ docker run -d --restart unless-stopped -p 3306:3306 --network leantime-net \
 -e MYSQL_DATABASE=leantime \
 -e MYSQL_USER=admin \
 -e MYSQL_PASSWORD=321.qwerty \
---name mysql_leantime mysql:8.0 --character-set-server=utf8 --collation-server=utf8_unicode_ci
+--name mysql_leantime mysql:8.0 --character-set-server=UTF8MB4 --collation-server=UTF8MB4_unicode_ci
 ```
 
-3. Create the Leantime container.
+#### 3. Create the Leantime container.
 
 ```
 docker run -d --restart unless-stopped -p 80:80 --network leantime-net \

@@ -7,37 +7,32 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     restart: unless-stopped
-    environment:
-      - MYSQL_ROOT_PASSWORD=${LEAN_SQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${LEAN_DB_DATABASE}
-      - MYSQL_USER=${LEAN_DB_USER}
-      - MYSQL_PASSWORD=${LEAN_DB_PASSWORD}
-    command: --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    env_file: ./.env                                        # Environment file with settings
+    networks:
+      - leantime-net
+    command: --character-set-server=UTF8MB4 --collation-server=UTF8MB4_unicode_ci
+
 
   leantime:
     image: leantime/leantime:latest
     container_name: leantime
     restart: unless-stopped
-    environment:
-      - LEAN_DB_HOST=mysql_leantime
-      - LEAN_APP_URL=${LEAN_APP_URL}
-      - LEAN_SITENAME=${LEAN_SITENAME}
-      - LEAN_DB_USER=${LEAN_DB_USER}
-      - LEAN_DB_PASSWORD=${LEAN_DB_PASSWORD}
-      - LEAN_DB_DATABASE=${LEAN_DB_DATABASE}
-      - LEAN_DEFAULT_TIMEZONE=${LEAN_DEFAULT_TIMEZONE}
-      - LEAN_SESSION_PASSWORD=${LEAN_SESSION_PASSWORD}
-      - LEAN_SESSION_EXPIRATION=${LEAN_SESSION_EXPIRATION}
+    env_file: ./.env                                        # Environment file with settings
+    networks:
+      - leantime-net
+
     volumes:
-      - public_userfiles:/var/www/html/public/userfiles
-      - userfiles:/var/www/html/userfiles
+      - public_userfiles:/var/www/html/public/userfiles     # Volume to store public files, logo etc
+      - userfiles:/var/www/html/userfiles                   # Volume to store private user uploaded files
     ports:
-      - "${LEAN_PORT}:80"
+      - "${LEAN_PORT}:80"                                          # The port to expose and access Leantime
     depends_on:
-      # Don't start Leantime unless leantime_db is running
-      - leantime_db
+      - leantime_db                                         # Don't start Leantime unless leantime_db is running
 
 volumes:
   db_data:
   userfiles:
   public_userfiles:
+
+networks:
+  leantime-net:
