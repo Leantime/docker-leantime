@@ -1,7 +1,7 @@
 FROM docker.io/library/php:8.1-fpm-alpine
 
 #Change version to trigger build
-ARG LEAN_VERSION=3.0.0-beta
+ARG LEAN_VERSION=3.0.0
 
 WORKDIR /var/www/html
 
