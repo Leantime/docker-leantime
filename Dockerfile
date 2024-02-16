@@ -19,10 +19,11 @@ RUN apk update && apk add --no-cache \
     apache2-ctl \
     apache2-proxy
 
-RUN docker-php-ext-enable zip
 
 # Installing extensions
-RUN docker-php-ext-install mysqli pdo_mysql mbstring exif pcntl pdo bcmath opcache ldap
+RUN docker-php-ext-install mysqli pdo_mysql mbstring exif pcntl pdo bcmath opcache ldap zip
+
+RUN docker-php-ext-enable zip
 
 RUN docker-php-ext-configure gd --enable-gd --with-jpeg=/usr/include/ --with-freetype --with-jpeg
 RUN docker-php-ext-install gd
