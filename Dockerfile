@@ -9,6 +9,8 @@ WORKDIR /var/www/html
 RUN apk update && apk add --no-cache \
     mysql-client \
     openldap-dev\
+    libzip-dev \
+    zip \
     freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev oniguruma-dev \
     icu-libs \
     jpegoptim optipng pngquant gifsicle \
@@ -16,6 +18,8 @@ RUN apk update && apk add --no-cache \
     apache2 \
     apache2-ctl \
     apache2-proxy
+
+RUN docker-php-ext-enable zip
 
 # Installing extensions
 RUN docker-php-ext-install mysqli pdo_mysql mbstring exif pcntl pdo bcmath opcache ldap
