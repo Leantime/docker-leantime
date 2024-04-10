@@ -60,10 +60,9 @@ RUN curl -sL https://github.com/Leantime/leantime/releases/download/v${LEAN_VERS
       --ungzip \
       --extract \
       --verbose \
-      --strip-components 1 \
-      --numeric-owner \
-      --owner=82 \
-      --group=127
+      --strip-components 1
+
+RUN chown www-data:www-data -R .
 
 COPY ./start.sh /start.sh
 RUN chmod +x /start.sh
