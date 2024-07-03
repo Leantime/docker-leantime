@@ -89,6 +89,10 @@ docker run -d --restart unless-stopped -p 80:80 --network leantime-net \
 
 Currently, this is only supported for `LEAN_DB_PASSWORD`, `LEAN_EMAIL_SMTP_PASSWORD`, `LEAN_S3_SECRET`, and `LEAN_SESSION_PASSWORD`.
 
+## Plugins
+
+If you are planning on using and installing plugins from the marketplace please ensure to mount the Plugin folder as suggested in the docker-compose file. Otherwise plugin installation may fail or plugins will disapper after a restart of the container. 
+
 ### Support ###
 * Documentation [https://docs.leantime.io](https://docs.leantime.io)
 * Community Forum [https://community.leantime.io](https://community.leantime.io)
