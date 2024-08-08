@@ -1,4 +1,4 @@
-FROM docker.io/library/php:8.1-fpm-alpine
+FROM docker.io/library/php:8.3-fpm-alpine
 
 # Build with: `docker build . --tag leantime:devel`
 
