@@ -7,17 +7,14 @@ FROM docker.io/library/php:8.3-fpm-alpine
 ##########################
 
 # Change version to trigger build
-ARG LEAN_VERSION=3.1.4
+ARG LEAN_VERSION=3.2.0
 
 WORKDIR /var/www/html
-
-VOLUME [ "/sessions" ]
 
 # Do not use the dns file in the image, but use the dns of the host, or use docker run --dns to specify 
 RUN echo -n > /etc/resolv.conf
 
 # Expose port 80 and start php-fpm server
-ENTRYPOINT ["/start.sh"]
 EXPOSE 80
 
 ########################
@@ -67,9 +64,6 @@ RUN curl -sL https://github.com/Leantime/leantime/releases/download/v${LEAN_VERS
 
 RUN chown www-data:www-data -R .
 
-COPY ./start.sh /start.sh
-RUN chmod +x /start.sh
-
 COPY config/custom.ini /usr/local/etc/php/conf.d/custom.ini
 
 # Configure supervisord
@@ -80,4 +74,3 @@ RUN sed -i '/LoadModule rewrite_module/s/^#//g' /etc/apache2/httpd.conf && \
     sed -i 's#AllowOverride [Nn]one#AllowOverride All#' /etc/apache2/httpd.conf && \
     sed -i '$iLoadModule proxy_module modules/mod_proxy.so' /etc/apache2/httpd.conf
 
-RUN mkdir -p "/sessions" && chown www-data:www-data /sessions && chmod 0777 /sessions
