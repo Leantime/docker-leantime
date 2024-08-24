@@ -11,9 +11,6 @@ ARG LEAN_VERSION=3.2.0
 
 WORKDIR /var/www/html
 
-# Do not use the dns file in the image, but use the dns of the host, or use docker run --dns to specify 
-RUN echo -n > /etc/resolv.conf
-
 # Expose port 80 and start php-fpm server
 EXPOSE 80
 
