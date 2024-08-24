@@ -61,6 +61,9 @@ RUN curl -sL https://github.com/Leantime/leantime/releases/download/v${LEAN_VERS
 
 RUN chown www-data:www-data -R .
 
+COPY ./start.sh /start.sh
+RUN chmod +x /start.sh
+
 COPY config/custom.ini /usr/local/etc/php/conf.d/custom.ini
 
 # Configure supervisord
