@@ -37,7 +37,7 @@ RUN apk add --no-cache \
 ## Installing extensions ##
 # Running in a single command is worse for caching/build failures, but far better for image size
 RUN docker-php-ext-install \
-    mysqli pdo_mysql mbstring exif pcntl pdo bcmath opcache ldap zip  \
+    mysqli pdo_mysql mbstring exif pcntl pdo bcmath opcache ldap zip \
     && \
     docker-php-ext-enable zip \
     && \

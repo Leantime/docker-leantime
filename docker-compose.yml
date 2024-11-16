@@ -12,7 +12,6 @@ services:
       - leantime-net
     command: --character-set-server=UTF8MB4 --collation-server=UTF8MB4_unicode_ci
 
-
   leantime:
     image: leantime/leantime:latest
     container_name: leantime
