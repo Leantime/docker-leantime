@@ -7,7 +7,7 @@ FROM docker.io/library/php:8.3-fpm-alpine
 ##########################
 
 # Change version to trigger build
-ARG LEAN_VERSION=3.2.1
+ARG LEAN_VERSION=3.3.0
 
 WORKDIR /var/www/html
 
@@ -29,6 +29,7 @@ RUN apk add --no-cache \
     jpegoptim optipng pngquant gifsicle \
     supervisor \
     apache2 \
+    openssl \
     apache2-ctl \
     apache2-proxy
 
@@ -36,7 +37,7 @@ RUN apk add --no-cache \
 ## Installing extensions ##
 # Running in a single command is worse for caching/build failures, but far better for image size
 RUN docker-php-ext-install \
-    mysqli pdo_mysql mbstring exif pcntl pdo bcmath opcache ldap zip \
+    mysqli pdo_mysql mbstring exif pcntl pdo bcmath opcache ldap zip  \
     && \
     docker-php-ext-enable zip \
     && \
