@@ -17,9 +17,19 @@ RUN apk add --no-cache --virtual .build-deps \
 
 # Install and configure PHP extensions
 RUN set -ex; \
-    docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install -j$(nproc) \
-    mysqli pdo_mysql bcmath mbstring exif pcntl opcache ldap zip simplexml dom fileinfo posix gd && \
+    # Configure extensions
+    docker-php-ext-configure gd --with-freetype --with-jpeg; \
+    # Install extensions one by one to prevent memory issues
+    docker-php-ext-install mysqli && \
+    docker-php-ext-install pdo_mysql && \
+    docker-php-ext-install bcmath && \
+    docker-php-ext-install mbstring && \
+    docker-php-ext-install exif && \
+    docker-php-ext-install pcntl && \
+    docker-php-ext-install opcache && \
+    docker-php-ext-install ldap && \
+    docker-php-ext-install zip && \
+    docker-php-ext-install gd && \
     rm -rf /tmp/* /var/cache/apk/*
 
 # Production stage
