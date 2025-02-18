@@ -1,79 +1,92 @@
-FROM docker.io/library/php:8.3-fpm-alpine
+# Build stage
+FROM php:8.3-fpm-alpine AS builder
 
-# Build with: `docker build . --tag leantime:devel`
+# Install build dependencies
+RUN apk add --no-cache --virtual .build-deps \
+    $PHPIZE_DEPS \
+    gcc \
+    g++ \
+    make \
+    libxml2-dev \
+    oniguruma-dev \
+    openldap-dev \
+    libzip-dev \
+    freetype-dev \
+    libpng-dev \
+    libjpeg-turbo-dev
 
-##########################
-#### ENVIRONMENT INFO ####
-##########################
+# Install and configure PHP extensions
+RUN set -ex; \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install -j$(nproc) \
+    mysqli pdo_mysql bcmath mbstring exif pcntl opcache ldap zip simplexml dom fileinfo posix gd && \
+    rm -rf /tmp/* /var/cache/apk/*
 
-# Change version to trigger build
-ARG LEAN_VERSION=3.4.0
+# Production stage
+FROM php:8.3-fpm-alpine
 
+# Add tini
+RUN apk add --no-cache tini
+
+# Add production dependencies
+RUN apk add --no-cache \
+    nginx \
+    mysql-client \
+    supervisor \
+    freetype \
+    libpng \
+    libjpeg-turbo \
+    libzip \
+    openldap \
+    icu-libs && \
+    rm -rf /var/cache/apk/* /tmp/*
+
+# Copy built extensions from builder
+COPY --from=builder /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
+COPY --from=builder /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
+
+# Add non-root user
+ARG PUID=1000
+ARG PGID=1000
+RUN set -ex; \
+    # Modify existing www-data user/group
+    deluser www-data; \
+    addgroup -g ${PGID} www-data; \
+    adduser -u ${PUID} -G www-data -h /home/www-data -s /bin/sh -D www-data; \
+    # Create required directories
+    mkdir -p /var/www/html/userfiles \
+            /var/www/html/public/userfiles \
+            /var/www/html/storage/logs \
+            /var/www/html/app/Plugins \
+            /run /var/log/nginx /var/lib/nginx; \
+    chown -R www-data:www-data /var/www/html /run /var/log/nginx /var/lib/nginx && \
+    chmod 775 /var/www/html/userfiles /var/www/html/public/userfiles /var/www/html/storage/logs /var/www/html/app/Plugins
+
+# Set working directory
 WORKDIR /var/www/html
 
-ENTRYPOINT ["/start.sh"]
-EXPOSE 80
+# Add healthcheck
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
+    CMD curl -f http://localhost/health || exit 1
 
-########################
-#### IMPLEMENTATION ####
-########################
-
-# Install dependencies
-RUN apk add --no-cache \
-    mysql-client \
-    openldap-dev\
-    libzip-dev \
-    zip \
-    freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev oniguruma-dev \
-    icu-libs \
-    jpegoptim optipng pngquant gifsicle \
-    supervisor \
-    apache2 \
-    openssl \
-    apache2-ctl \
-    apache2-proxy
-
-
-## Installing extensions ##
-# Running in a single command is worse for caching/build failures, but far better for image size
-RUN docker-php-ext-install \
-    mysqli pdo_mysql mbstring exif pcntl pdo bcmath opcache ldap zip \
-    && \
-    docker-php-ext-enable zip \
-    && \
-    docker-php-ext-configure gd \
-      --enable-gd \
-      --with-jpeg=/usr/include/ \
-      --with-freetype \
-      --with-jpeg \
-    && \
-    docker-php-ext-install gd
-
-
-## Installing Leantime ##
-
-# (silently) Download the specified release, piping output directly to `tar`
-RUN curl -sL https://github.com/Leantime/leantime/releases/download/v${LEAN_VERSION}/Leantime-v${LEAN_VERSION}.tar.gz | \
-    tar \
-      --ungzip \
-      --extract \
-      --verbose \
-      --strip-components 1
-
-RUN chown www-data:www-data -R .
-
-COPY ./start.sh /start.sh
+# Copy configuration files
+COPY config/custom.ini /usr/local/etc/php/conf.d/
+COPY config/nginx.conf /etc/nginx/nginx.conf
+COPY config/php-fpm.conf /usr/local/etc/php-fpm.d/www.conf
+COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-COPY config/custom.ini /usr/local/etc/php/conf.d/custom.ini
+# Install Leantime
+ARG LEAN_VERSION=3.4.0
+RUN set -ex; \
+    curl -fsSL --retry 3 https://github.com/Leantime/leantime/releases/download/v${LEAN_VERSION}/Leantime-v${LEAN_VERSION}.tar.gz -o leantime.tar.gz && \
+    tar xzf leantime.tar.gz --strip-components 1 && \
+    rm leantime.tar.gz && \
+    chown -R www-data:www-data .
 
-# Configure supervisord
-COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY config/app.conf  /etc/apache2/conf.d/app.conf
+# Switch to non-root user
+USER www-data
 
-RUN sed -i '/LoadModule rewrite_module/s/^#//g' /etc/apache2/httpd.conf && \
-    sed -i 's#AllowOverride [Nn]one#AllowOverride All#' /etc/apache2/httpd.conf && \
-    sed -i '$iLoadModule proxy_module modules/mod_proxy.so' /etc/apache2/httpd.conf
-
-
-
+EXPOSE 80
+ENTRYPOINT ["/sbin/tini", "--", "/start.sh"]

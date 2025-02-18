@@ -1,12 +1,13 @@
+<a href="https://leantime.io"><img src="https://leantime.io/wp-content/uploads/2023/03/leantime_logo.png" alt="Leantime Logo" width="300"/></a>
+# Leantime Docker Deployment Guide
 
-<img src="https://leantime.io/logos/leantime-logo-transparentBg-landscape-1500.png" width="400"/>
 
-# Leantime&trade; Docker
-
-[![License Badge](https://img.shields.io/github/license/leantime/leantime?style=flat-square)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/github/package-json/v/leantime/leantime/master?style=flat-square)](https://github.com/Leantime/leantime/releases)
+[![License Badge](https://img.shields.io/github/license/leantime/leantime?style=flat-square)](https://www.gnu.org/licenses/agpl-3.0.en.html)
 [![Docker Hub Badge](https://img.shields.io/docker/pulls/leantime/leantime?style=flat-square)](https://hub.docker.com/r/leantime/leantime)
+![Github Downloads](https://img.shields.io/github/downloads/leantime/leantime/total)
 [![Discord Badge](https://img.shields.io/discord/990001288026677318?label=Discord&style=flat-square)](https://discord.gg/4zMzJtAq9z)
+[![Crowdin](https://badges.crowdin.net/leantime/localized.svg)](https://crowdin.com/project/leantime)
+![GitHub Sponsors](https://img.shields.io/github/sponsors/leantime)
 <br />
 
 Leantime is an open source project management system for small teams and startups written in PHP, Javascript using MySQL. [https://leantime.io](https://leantime.io)
@@ -16,62 +17,83 @@ This is the official <a href="https://hub.docker.com/r/leantime/leantime">Docker
 ## How to use this image
 Below you will find examples on how to get started with Leantime trough `docker run` or `docker compose`.
 
-### Full Set up with docker-compose
 
-One command install with docker compose.
 
-```
-git clone https://github.com/Leantime/docker-leantime.git
-cd docker-leantime
-cp sample.env .env
-docker compose up -d
-```
-
-Dont forget to update the `.env` file for production.
-
-### Full set up with docker run
-
-#### 1. Create the network so Leantime can communicate with the MySql container.
+### Option 1: Quick Start with Docker Compose (Recommended)
 
 ```
+    git clone https://github.com/Leantime/docker-leantime.git 
+    cd docker-leantime 
+    cp sample.env .env
+```
+Edit .env file with your settings and then run
+
+```
+    docker compose up -d
+```
+
+### Option 2: Direct Docker Run
+
+#### Create network
+
+``` 
 docker network create leantime-net
 ```
+#### Start Mysql
 
-#### 2. Create the MySQL container.
-If you don't have a MySQL database set up and would like to create a container follow these instruction, otherwise jump to step 3.
-
-```
-docker run -d --restart unless-stopped -p 3306:3306 --network leantime-net \
--e MYSQL_ROOT_PASSWORD=321.qwerty \
--e MYSQL_DATABASE=leantime \
--e MYSQL_USER=admin \
--e MYSQL_PASSWORD=321.qwerty \
---name mysql_leantime mysql:8.4 --character-set-server=UTF8MB4 --collation-server=UTF8MB4_unicode_ci
+``` 
+    docker run -d --restart unless-stopped -p 3306:3306 --network leantime-net \ 
+    -e MYSQL_ROOT_PASSWORD= changeme123 \ 
+    -e MYSQL_DATABASE=leant ime \ 
+    -e MYSQL_USER=lean \ 
+    -e MYSQL_PASSWORD=chang eme123 \ 
+    --name mysql_leantime mysql:8.4
 ```
 
-#### 3. Create the Leantime container.
+## Docker specific configuration options
+
+### Running as Non-Root User
+Add the `user` directive to your docker-compose.yml:
 
 ```
-docker run -d --restart unless-stopped -p 80:80 --network leantime-net \
--e LEAN_DB_HOST=mysql_leantime \
--e LEAN_DB_USER=admin \
--e LEAN_DB_PASSWORD=321.qwerty \
--e LEAN_DB_DATABASE=leantime \
---name leantime leantime/leantime:latest
+    services: 
+        leantime: 
+            image: leantime/leantime:latest 
+        user: leantime 
+        ...
+```
+Or with docker run:
+```
+docker run --user leantime ...
 ```
 
-4. Run the installation script at `<yourdomain.com>/install`
+#### User / Group Identifiers
 
-## Full Set up with docker-compose
+You can also map the container's internal user/group to match your host's user/group by setting the `PUID` and `PGID` environment variables. This helps avoid permission issues between the container and host machine. To find your host user/group ID, run `id username` on the host system. For example, to run the container as your current user, you would set:
 
-One command install with docker-compose.
+```
+    docker run -e PUID=$(id -u) -e PGID=$(id -g) leantime/leantime:latest
+```
 
-```sh
-git clone https://github.com/Leantime/docker-leantime.git
-cd docker-leantime
-cp sample.env .env
-nano .env    # Change the secrets for security
-docker-compose up -d
+Or in docker-compose.yml:
+
+```
+services: 
+    leantime: 
+        environment: 
+            - PUID=1000 # Replace with your user ID 
+            - PGID=1000 # Replace with your group ID
+```
+
+## Volume Management
+Important directories that should be persisted:
+
+```
+volumes: 
+    - public_userfiles:/var/www/html/public/userfiles # Public files, logos 
+    - userfiles:/var/www/html/userfiles # User uploaded files 
+    - plugins:/var/www/html/app/Plugins # Plugin directory 
+    - logs:/var/www/html/storage/logs # Application logs
 ```
 
 ## Docker secrets
@@ -89,12 +111,63 @@ docker run -d --restart unless-stopped -p 80:80 --network leantime-net \
 
 Currently, this is only supported for `LEAN_DB_PASSWORD`, `LEAN_EMAIL_SMTP_PASSWORD`, `LEAN_S3_SECRET`, and `LEAN_SESSION_PASSWORD`.
 
-## Plugins
+## Common Issues & Solutions
 
-If you are planning on using and installing plugins from the marketplace please ensure to mount the Plugin folder as suggested in the docker-compose file. Otherwise plugin installation may fail or plugins will disapper after a restart of the container. 
+### Permission Issues
+If you see "Operation not permitted" errors:
+1. Ensure volumes are properly created
+2. Check ownership of mounted directories
+3. Run container as root (default) or properly configure user permissions
 
-### Support ###
-* Documentation [https://docs.leantime.io](https://docs.leantime.io)
-* Community Forum [https://community.leantime.io](https://community.leantime.io)
-* Discussions on [Discord](https://discord.gg/4zMzJtAq9z)
-* File a bug report [https://github.com/Leantime/leantime/issues/new](https://github.com/Leantime/leantime/issues/new)
+Fix permissions manually:
+
+```
+    docker exec -it leantime chown -R www-data:www-data /var/www/html/userfiles \ 
+                                       /var/www/html/public/userfiles \ 
+                                       /var/www/html/storage/logs \ 
+                                       /var/www/html/app/Plugins
+    docker exec -it leantime chmod -R 775 /var/www/html/userfiles \ 
+                                       /var/www/html/public/userfiles \ 
+                                       /var/www/html/storage/logs \ 
+                                       /var/www/html/app/Plugins
+    
+```
+
+### Database Connection Issues
+1. Verify database credentials in .env file
+2. Ensure database container is running and healthy
+3. Check network connectivity between containers
+
+### Plugin Installation Issues
+1. Ensure the plugins volume is properly mounted
+2. Check write permissions on the plugins directory
+3. Verify plugin compatibility with your Leantime version
+
+### Nginx/PHP-FPM Issues
+1. Check logs: `docker logs leantime`
+2. Verify port mappings
+3. Ensure no conflicts with host ports
+
+## Leantime Environment Variables
+See sample.env for all available options. Critical variables:
+
+```
+LEAN_DB_HOST=mysql_leantime 
+LEAN_DB_USER=lean 
+LEAN_DB_PASSWORD=changeme123 
+LEAN_DB_DATABASE=leantime  
+LEAN_SESSION_PASSWORD=your_secure_password
+```
+
+## Security Considerations
+1. Always change default passwords
+2. Use Docker secrets for sensitive data
+3. Consider running as non-root user
+4. Enable HTTPS in production
+5. Restrict network access appropriately
+
+## Support & Documentation
+- [Official Documentation](https://docs.leantime.io)
+- [Discord Channel](https://discord.gg/4zMzJtAq9z)
+- [GitHub Issues](https://github.com/Leantime/leantime/issues)
+
