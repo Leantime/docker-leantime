@@ -1,5 +1,8 @@
 # Build stage
-FROM php:8.3-fpm-alpine AS builder
+FROM --platform=$TARGETPLATFORM php:8.3-fpm-alpine AS builder
+
+# Add QEMU for cross-platform builds
+COPY --from=tonistiigi/binfmt:latest /usr/bin/qemu-* /usr/bin/
 
 # Install build dependencies
 RUN apk add --no-cache --virtual .build-deps \
@@ -14,6 +17,12 @@ RUN apk add --no-cache --virtual .build-deps \
     freetype-dev \
     libpng-dev \
     libjpeg-turbo-dev
+
+# Set cross-compilation flags if needed
+ARG TARGETPLATFORM
+RUN case "${TARGETPLATFORM}" in \
+        linux/arm64*) export CFLAGS='-march=armv8-a' CXXFLAGS='-march=armv8-a' ;; \
+    esac
 
 # Install and configure PHP extensions
 RUN set -ex; \
@@ -33,7 +42,7 @@ RUN set -ex; \
     rm -rf /tmp/* /var/cache/apk/*
 
 # Production stage
-FROM php:8.3-fpm-alpine
+FROM --platform=$TARGETPLATFORM php:8.3-fpm-alpine
 
 # Add tini
 RUN apk add --no-cache tini

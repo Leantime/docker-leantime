@@ -21,13 +21,15 @@ jobs:
     - name: Docker login
       run: |
         docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
-       
-    - name: Docker builder
+        
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        platforms: linux/amd64,linux/arm64,linux/arm/v8
+
+    - name: Build and push
       run: |
-          docker buildx use $(docker buildx create --platform linux/amd64,linux/arm64,linux/arm/v8)
-         
-    - name: Build & Push
-      run: |
-        docker buildx build --file Dockerfile --platform linux/amd64,linux/arm64,linux/arm/v8 --output "type=image,push=true" --tag leantime/leantime:${{ github.event.inputs.tag }} .
-      
-    
+        docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v8 --tag leantime/leantime:${{ github.event.inputs.tag }} .
