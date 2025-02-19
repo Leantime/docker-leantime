@@ -33,3 +33,7 @@ jobs:
     - name: Build and push
       run: |
         docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v8 --tag leantime/leantime:${{ github.event.inputs.tag }} .
+
+    - name: Create and push manifest for latest
+      run: |
+        docker buildx imagetools create -t leantime/leantime:latest leantime/leantime:${{ github.event.inputs.tag }}
