@@ -18,7 +18,11 @@ services:
       retries: 3
 
   leantime:
-    image: leantime/leantime:latest
+    build:
+      context: .
+      args:
+        LEAN_VERSION: ${LEAN_VERSION:-latest}  # Use env variable or default to 'latest'
+    image: leantime/leantime:${LEAN_VERSION:-latest}
     #user: "www-data"                                        # Run as non-root user
     restart: unless-stopped
     env_file: ./.env                                        # Environment file with settings

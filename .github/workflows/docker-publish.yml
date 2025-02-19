@@ -32,7 +32,9 @@ jobs:
 
     - name: Build and push
       run: |
-        docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v8 --tag leantime/leantime:${{ github.event.inputs.tag }} .
+        docker buildx build --build-arg LEAN_VERSION=${{ github.event.inputs.version }} \
+          --push --platform linux/amd64,linux/arm64,linux/arm/v8 \
+          --tag leantime/leantime:${{ github.event.inputs.version }} .
 
     - name: Create and push manifest for latest
       run: |
