@@ -97,7 +97,7 @@ COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
 # Install Leantime
-ARG LEAN_VERSION=3.4.0
+ARG LEAN_VERSION=3.4.1
 RUN set -ex; \
     curl -fsSL --retry 3 https://github.com/Leantime/leantime/releases/download/v${LEAN_VERSION}/Leantime-v${LEAN_VERSION}.tar.gz -o leantime.tar.gz && \
     tar xzf leantime.tar.gz --strip-components 1 && \
@@ -107,5 +107,5 @@ RUN set -ex; \
 # Switch to non-root user
 USER www-data
 
-EXPOSE 80
+EXPOSE 8080
 ENTRYPOINT ["/sbin/tini", "--", "/start.sh"]

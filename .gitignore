@@ -1,3 +1,5 @@
 .env
 .vscode
 .DS_store
+.codebuddy
+.idea

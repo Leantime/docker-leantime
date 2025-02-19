@@ -17,8 +17,6 @@ This is the official <a href="https://hub.docker.com/r/leantime/leantime">Docker
 ## How to use this image
 Below you will find examples on how to get started with Leantime trough `docker run` or `docker compose`.
 
-
-
 ### Option 1: Quick Start with Docker Compose (Recommended)
 
 ```
@@ -51,6 +49,21 @@ docker network create leantime-net
 ```
 
 ## Docker specific configuration options
+
+### Port Configuration
+By default, Leantime runs on port 8080 internally. If you need to use port 80, you have two options:
+
+1. Map port 80 externally to 8080 internally in docker-compose.yml:
+
+```
+    ports: - "80:8080"
+```
+
+2. Add required capabilities (not recommended):
+
+```
+    cap_add: - CAP_NET_BIND_SERVICE
+```
 
 ### Running as Non-Root User
 Add the `user` directive to your docker-compose.yml:
