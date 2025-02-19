@@ -4,11 +4,14 @@ on:
   workflow_dispatch: 
     inputs: 
       tag:
-        description: "Tag"
+        description: "Version"
         required: true
-        
+      set_as_latest:
+        description: "Set this version as 'latest'"
+        type: boolean
+        default: false
+        required: true
 
-      
 jobs:
 
   build:
@@ -37,5 +40,6 @@ jobs:
           --tag leantime/leantime:${{ github.event.inputs.version }} .
 
     - name: Create and push manifest for latest
+      if: ${{ inputs.set_as_latest }}
       run: |
         docker buildx imagetools create -t leantime/leantime:latest leantime/leantime:${{ github.event.inputs.tag }}
