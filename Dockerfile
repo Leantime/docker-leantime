@@ -9,6 +9,7 @@ RUN apk add --no-cache --virtual .build-deps \
     $PHPIZE_DEPS \
     gcc \
     g++ \
+    openssl-dev \
     make \
     libxml2-dev \
     oniguruma-dev \
@@ -44,13 +45,12 @@ RUN set -ex; \
 # Production stage
 FROM --platform=$TARGETPLATFORM php:8.3-fpm-alpine
 
-# Add tini
-RUN apk add --no-cache tini
-
 # Add production dependencies
 RUN apk add --no-cache \
+    tini \
     nginx \
     mysql-client \
+    openssl \
     supervisor \
     freetype \
     libpng \
@@ -67,6 +67,19 @@ COPY --from=builder /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
 # Add non-root user
 ARG PUID=1000
 ARG PGID=1000
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Install Leantime
+ARG LEAN_VERSION
+RUN set -ex; \
+    curl -fsSL --retry 3 https://github.com/Leantime/leantime/releases/download/v${LEAN_VERSION}/Leantime-v${LEAN_VERSION}.tar.gz -o leantime.tar.gz && \
+    tar xzf leantime.tar.gz --strip-components 1 && \
+    rm leantime.tar.gz && \
+    chown -R www-data:www-data .
+
+# Set Permissions
 RUN set -ex; \
     # Modify existing www-data user/group
     deluser www-data; \
@@ -81,31 +94,19 @@ RUN set -ex; \
     chown -R www-data:www-data /var/www/html /run /var/log/nginx /var/lib/nginx && \
     chmod 775 /var/www/html/userfiles /var/www/html/public/userfiles /var/www/html/storage/logs /var/www/html/app/Plugins
 
-# Set working directory
-WORKDIR /var/www/html
-
-# Add healthcheck
-HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
-    CMD curl -f http://localhost/health || exit 1
-
 # Copy configuration files
 COPY config/custom.ini /usr/local/etc/php/conf.d/
 COPY config/nginx.conf /etc/nginx/nginx.conf
 COPY config/php-fpm.conf /usr/local/etc/php-fpm.d/www.conf
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
-
-# Install Leantime
-ARG LEAN_VERSION
-RUN set -ex; \
-    curl -fsSL --retry 3 https://github.com/Leantime/leantime/releases/download/v${LEAN_VERSION}/Leantime-v${LEAN_VERSION}.tar.gz -o leantime.tar.gz && \
-    tar xzf leantime.tar.gz --strip-components 1 && \
-    rm leantime.tar.gz && \
-    chown -R www-data:www-data .
+COPY --chmod=0755 start.sh /start.sh
 
 # Switch to non-root user
 USER www-data
+
+# Add healthcheck
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
+    CMD curl -f http://localhost:8080 || exit 1
 
 EXPOSE 8080
 ENTRYPOINT ["/sbin/tini", "--", "/start.sh"]
