@@ -51,19 +51,14 @@ docker network create leantime-net
 ## Docker specific configuration options
 
 ### Port Configuration
-By default, Leantime runs on port 8080 internally. If you need to use port 80, you have two options:
+By default, Leantime runs on port 8080 internally.
 
-1. Map port 80 externally to 8080 internally in docker-compose.yml:
+To map port 80 externally to 8080 internally in docker-compose.yml:
 
 ```
     ports: - "80:8080"
 ```
 
-2. Add required capabilities (not recommended):
-
-```
-    cap_add: - CAP_NET_BIND_SERVICE
-```
 
 ### Running as Non-Root User
 Add the `user` directive to your docker-compose.yml:
