@@ -49,7 +49,6 @@ FROM --platform=$TARGETPLATFORM php:8.3-fpm-alpine
 RUN apk add --no-cache \
     tini \
     nginx \
-    dcron \
     mysql-client \
     openssl \
     supervisor \
@@ -111,7 +110,6 @@ COPY config/custom.ini /usr/local/etc/php/conf.d/
 COPY config/nginx.conf /etc/nginx/nginx.conf
 COPY config/php-fpm.conf /usr/local/etc/php-fpm.d/www.conf
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY config/crontab /config/crontab
 COPY --chmod=0755 start.sh /start.sh
 
 # Switch to non-root user
