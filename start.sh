@@ -48,4 +48,8 @@ fi
 # Ensure supervisord can write its pid file
 mkdir -p /run
 
+# Set up crontab
+crontab -u www-data /config/crontab
+chmod 600 /config/crontab
+
 /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf

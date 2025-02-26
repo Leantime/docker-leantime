@@ -1,0 +1,2 @@
+# Run Leantime scheduler every minute
+* * * * * cd /var/www/html && php bin/leantime schedule:run >> /var/www/html/storage/logs/cron.log 2>&1
