@@ -104,7 +104,7 @@ RUN set -ex; \
                /var/www/html/storage/framework/cache \
                /var/www/html/storage/framework/sessions \
                /var/www/html/storage/framework/views \
-               /var/www/html/app/Plugins; \
+               /var/www/html/app/Plugins;
 
 # Copy configuration files
 COPY config/custom.ini /usr/local/etc/php/conf.d/
