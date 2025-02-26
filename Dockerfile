@@ -97,6 +97,7 @@ RUN set -ex; \
             /run /var/log/nginx /var/lib/nginx; \
     chown -R www-data:www-data /var/www/html /run /var/log/nginx /var/lib/nginx && \
     chmod 775 /var/www/html/userfiles \
+               /var/www/html/public/userfiles \
                /var/www/html/bootstrap/cache \
                /var/www/html/storage/logs \
                /var/www/html/storage/framework/cache \
