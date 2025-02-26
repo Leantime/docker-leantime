@@ -88,11 +88,21 @@ RUN set -ex; \
     # Create required directories
     mkdir -p /var/www/html/userfiles \
             /var/www/html/public/userfiles \
+            /var/www/html/bootstrap/cache \
             /var/www/html/storage/logs \
+            /var/www/html/storage/framework/cache \
+            /var/www/html/storage/framework/sessions \
+            /var/www/html/storage/framework/views \
             /var/www/html/app/Plugins \
             /run /var/log/nginx /var/lib/nginx; \
     chown -R www-data:www-data /var/www/html /run /var/log/nginx /var/lib/nginx && \
-    chmod 775 /var/www/html/userfiles /var/www/html/public/userfiles /var/www/html/storage/logs /var/www/html/app/Plugins
+    chmod 775 /var/www/html/userfiles \
+               /var/www/html/bootstrap/cache \
+               /var/www/html/storage/logs \
+               /var/www/html/storage/framework/cache \
+               /var/www/html/storage/framework/sessions \
+               /var/www/html/storage/framework/views \
+               /var/www/html/app/Plugins; \
 
 # Copy configuration files
 COPY config/custom.ini /usr/local/etc/php/conf.d/
