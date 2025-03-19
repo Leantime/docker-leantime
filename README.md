@@ -61,23 +61,8 @@ To map port 80 externally to 8080 internally in docker-compose.yml:
 
 
 ### Running as Non-Root User
-Add the `user` directive to your docker-compose.yml:
 
-```
-    services: 
-        leantime: 
-            image: leantime/leantime:latest 
-        user: leantime 
-        ...
-```
-Or with docker run:
-```
-docker run --user leantime ...
-```
-
-#### User / Group Identifiers
-
-You can also map the container's internal user/group to match your host's user/group by setting the `PUID` and `PGID` environment variables. This helps avoid permission issues between the container and host machine. To find your host user/group ID, run `id username` on the host system. For example, to run the container as your current user, you would set:
+You can map the container's internal user/group to match your host's user/group by setting the `PUID` and `PGID` environment variables. This helps avoid permission issues between the container and host machine. To find your host user/group ID, run `id username` on the host system. For example, to run the container as your current user, you would set:
 
 ```
     docker run -e PUID=$(id -u) -e PGID=$(id -g) leantime/leantime:latest

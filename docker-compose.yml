@@ -19,7 +19,6 @@ services:
 
   leantime:
     image: leantime/leantime:${LEAN_VERSION:-latest}
-    #user: "www-data"                                        # Run as non-root user
     restart: unless-stopped
     env_file: ./.env                                        # Environment file with settings
     # Add security options
