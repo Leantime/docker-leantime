@@ -14,6 +14,7 @@ RUN apk add --no-cache --virtual .build-deps \
     libxml2-dev \
     oniguruma-dev \
     openldap-dev \
+    libzstd-dev \
     libzip-dev \
     freetype-dev \
     libpng-dev \
@@ -39,8 +40,11 @@ RUN set -ex; \
     docker-php-ext-install opcache && \
     docker-php-ext-install ldap && \
     docker-php-ext-install zip && \
+    pecl install redis && docker-php-ext-enable redis && \
     docker-php-ext-install gd && \
     rm -rf /tmp/* /var/cache/apk/*
+
+
 
 # Production stage
 FROM --platform=$TARGETPLATFORM php:8.3-fpm-alpine
@@ -54,6 +58,7 @@ RUN apk add --no-cache \
     supervisor \
     freetype \
     libpng \
+    libzstd \
     libjpeg-turbo \
     libzip \
     openldap \
