@@ -58,7 +58,7 @@ RUN apk add --no-cache \
     supervisor \
     freetype \
     libpng \
-    libzstd \
+    zstd-libs \
     libjpeg-turbo \
     libzip \
     openldap \
