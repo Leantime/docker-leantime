@@ -14,7 +14,7 @@ RUN apk add --no-cache --virtual .build-deps \
     libxml2-dev \
     oniguruma-dev \
     openldap-dev \
-    libzstd-dev \
+    zstd-dev \
     libzip-dev \
     freetype-dev \
     libpng-dev \
