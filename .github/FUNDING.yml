@@ -1,4 +1,9 @@
 # These are supported funding model platforms
 
+<<<<<<< HEAD
 github: Leantime
 
+=======
+github: ['Leantime']
+custom: ['https://marketplace.leantime.io']
+>>>>>>> upstream/master

@@ -659,6 +659,7 @@ specific requirements.
 if any, to sign a "copyright disclaimer" for the program, if necessary.
 For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
+<<<<<<< HEAD
 
 
 LICENSE EXCEPTIONS
@@ -670,3 +671,5 @@ Software or customize the behavior to local needs, and for that purpose
 include it by reference shall not be considered modifications of the software.
 
 
+=======
+>>>>>>> upstream/master
