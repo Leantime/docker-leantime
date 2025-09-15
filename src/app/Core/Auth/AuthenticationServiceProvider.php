@@ -116,7 +116,7 @@ class AuthenticationServiceProvider extends ServiceProvider
             );
         });
 
-        $this->app['auth']->extend('leantime', function ($app, $name, array $config) {
+        $this->app['auth']->extend('KGISL EDU', function ($app, $name, array $config) {
             return new WebGuard(
                 $app['auth']->createUserProvider($config['provider']),
                 $app->make(\Leantime\Domain\Auth\Services\Auth::class)

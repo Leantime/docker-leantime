@@ -53,7 +53,7 @@ return [
             Illuminate\Foundation\Providers\ComposerServiceProvider::class,
 
         ],
-        'name' => env('LEAN_SITENAME', 'Leantime'),
+        'name' => env('LEAN_SITENAME', 'KGISL EDU'),
         'locale' => env('LEAN_LANGUAGE', 'en-US'),
         'url' => env('LEAN_APP_URL', ''),
         'timezone' => env('LEAN_DEFAULT_TIMEZONE', 'America/Los_Angeles'),
@@ -619,12 +619,12 @@ return [
     ],
     'auth' => [
         'defaults' => [
-            'guard' => 'leantime',
+            'guard' => 'KGISL EDU',
             'passwords' => 'users',
         ],
         'guards' => [
-            'leantime' => [
-                'driver' => 'leantime',
+            'KGISL EDU' => [
+                'driver' => 'KGISL EDU',
                 'provider' => 'leantimeUsers',
             ],
             'sanctum' => [

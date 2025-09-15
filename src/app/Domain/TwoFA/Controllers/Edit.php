@@ -31,7 +31,7 @@ class Edit extends Controller
 
         $user = $this->userRepo->getUser($userId);
 
-        $tfa = new TwoFactorAuth('Leantime', 6, 30, 'sha1', new class implements IQRCodeProvider
+        $tfa = new TwoFactorAuth('KGISL EDU', 6, 30, 'sha1', new class implements IQRCodeProvider
         {
             public function getMimeType(): string
             {

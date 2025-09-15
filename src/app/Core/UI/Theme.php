@@ -183,7 +183,7 @@ class Theme
 
         $parsedColorSchemes = $this->colorSchemes;
         $parsedColorSchemes['themeDefault'] = [
-            'name' => 'Leantime',
+            'name' => 'KGISL EDU',
             'primaryColor' => $this->iniData['general']['primaryColor'] ?? $this->colorSchemes['themeDefault']['primaryColor'],
             'secondaryColor' => $this->iniData['general']['secondaryColor'] ?? $this->colorSchemes['themeDefault']['secondaryColor'],
         ];

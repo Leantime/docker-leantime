@@ -116,7 +116,7 @@ class Messengers
             $message = $this->prepareMessage($notification);
 
             $data = [
-                'username' => 'Leantime',
+                'username' => 'KGISL EDU',
                 'icon_url' => '',
                 'text' => '',
                 'attachments' => $message,

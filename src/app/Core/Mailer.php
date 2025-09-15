@@ -59,7 +59,7 @@ class Mailer
         if ($config->email != '') {
             $this->emailDomain = $config->email;
         } else {
-            $host = $_SERVER['HTTP_HOST'] ?? 'leantime';
+            $host = $_SERVER['HTTP_HOST'] ?? 'KGISL EDU';
             $this->emailDomain = 'no-reply@'.$host;
         }
 

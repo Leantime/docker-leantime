@@ -542,7 +542,7 @@ class Auth implements Authenticatable
 
     public function verify2FA(string $code): bool
     {
-        $twoFactorAuthentication = new TwoFactorAuth('Leantime');
+        $twoFactorAuthentication = new TwoFactorAuth('KGISL EDU');
 
         return $twoFactorAuthentication->verifyCode(session('userdata.twoFASecret'), $code);
     }

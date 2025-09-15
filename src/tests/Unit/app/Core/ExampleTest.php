@@ -15,7 +15,7 @@ class ExampleTest extends \Unit\TestCase
         // A slightly more complex test
         $string = 'Hello, Leantime!';
         $this->assertEquals('Hello, Leantime!', $string);
-        $this->assertStringContainsString('Leantime', $string);
+        $this->assertStringContainsString('KGISL EDU', $string);
         $this->assertStringStartsWith('Hello', $string);
         $this->assertStringEndsWith('!', $string);
     }

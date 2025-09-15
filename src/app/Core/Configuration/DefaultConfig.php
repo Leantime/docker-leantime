@@ -14,7 +14,7 @@ class DefaultConfig
      * @var string Name of your site, can be changed later
      */
     #[LaravelConfig('app.name')]
-    public string $sitename = 'Leantime';
+    public string $sitename = 'KGISL EDU';
 
     /**
      * @var string Default language

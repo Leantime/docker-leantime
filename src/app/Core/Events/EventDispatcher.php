@@ -159,7 +159,7 @@ class EventDispatcher implements Dispatcher
             return;
         }
 
-        $payload['leantime'] = self::defineParams($payload, $event);
+        $payload['KGISL EDU'] = self::defineParams($payload, $event);
         $payload['laravel'] = $payload;
 
         self::executeHandlers($matchedEvents, 'events', $event, $payload);
@@ -277,7 +277,7 @@ class EventDispatcher implements Dispatcher
                         continue;
                     }
 
-                    $parsedListener($event, [$payload['leantime']]);
+                    $parsedListener($event, [$payload['KGISL EDU']]);
 
                     continue;
                 }
@@ -555,7 +555,7 @@ class EventDispatcher implements Dispatcher
         $event,
         $listener,
         int $priority = 10,
-        $listenerSource = 'leantime'
+        $listenerSource = 'KGISL EDU'
     ): void {
 
         // Some backwards compatibility rules
@@ -579,7 +579,7 @@ class EventDispatcher implements Dispatcher
         self::$eventRegistry[$event][] = ['listener' => $listener, 'priority' => $priority, 'source' => $listenerSource];
     }
 
-    public static function addEventListener($event, $listener, $priority = 10, $source = 'leantime')
+    public static function addEventListener($event, $listener, $priority = 10, $source = 'KGISL EDU')
     {
         self::add_event_listener($event, $listener, $priority, $source);
     }
@@ -588,7 +588,7 @@ class EventDispatcher implements Dispatcher
         $filtername,
         $listener,
         int $priority = 10,
-        $listenerSource = 'leantime'
+        $listenerSource = 'KGISL EDU'
     ): void {
         if (! array_key_exists($filtername, self::$filterRegistry)) {
             self::$filterRegistry[$filtername] = [];

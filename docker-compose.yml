@@ -18,7 +18,12 @@ services:
       retries: 3
 
   leantime:
-    image: leantime/leantime:${LEAN_VERSION:-latest}
+    build:
+      context: .              # 👈 Build from your repo root (with Dockerfile + src/)
+      dockerfile: Dockerfile  # 👈 Explicit Dockerfile (optional if named Dockerfile)
+      args:
+        PUID: 1000
+        PGID: 1000
     container_name: leantime
     restart: unless-stopped
     env_file: ./.env

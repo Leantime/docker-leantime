@@ -267,7 +267,7 @@ class Users
 
         $message = sprintf(
             $this->language->__('email_notifications.user_invite_message'),
-            session('userdata.name') ?? 'Leantime',
+            session('userdata.name') ?? 'KGISL EDU',
             $actual_link,
             $user
         );
@@ -276,7 +276,7 @@ class Users
 
         $to = [$user];
 
-        $mailer->sendMail($to, session('userdata.name') ?? 'Leantime');
+        $mailer->sendMail($to, session('userdata.name') ?? 'KGISL EDU');
     }
 
     /**
