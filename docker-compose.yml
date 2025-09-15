@@ -29,7 +29,7 @@ services:
       - CAP_SETGID
       - CAP_SETUID
     ports:
-      - "${LEAN_PORT:-8080}:8080"
+      - "${LEAN_PORT:-4545}:8080"
     networks:
       - leantime-net
     volumes:
