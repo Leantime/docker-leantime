@@ -1,0 +1,77 @@
+.shepherd-header,
+.shepherd-content {
+    background:var(--secondary-background);
+    padding: 0px;
+
+}
+
+.shepherd-element,
+.shepherd-content {
+    border-radius:var(--box-radius);
+}
+
+.shepherd-element.shepherd-has-title[data-popper-placement^=bottom]>.shepherd-arrow:before,
+.shepherd-element.shepherd-has-title[data-popper-placement^=top]>.shepherd-arrow:before,
+.shepherd-element.shepherd-has-title[data-popper-placement^=left]>.shepherd-arrow:before,
+.shepherd-element.shepherd-has-title[data-popper-placement^=right]>.shepherd-arrow:before,
+.shepherd-arrow:before {
+    background:var(--secondary-background);
+}
+
+.shepherd-title,
+.shepherd-text {
+    font-size: var(--font-size-l);
+    line-height: 1.5;
+    padding:15px;
+    color:var(--primary-font-color);
+}
+
+.shepherd-title {
+    font-size:var(--font-size-l);
+    font-weight:bold;
+    color:var(--main-action-color);
+}
+
+.shepherd-has-title .shepherd-content .shepherd-header {
+    padding:0px;
+    background:var(--element-gradient);
+    border-top-left-radius: var(--box-radius);
+    border-top-right-radius: var(--box-radius);
+}
+
+.shepherd-button {
+    background:var(--main-action-bg);
+    color:var(--main-action-color);
+    border-radius: var(--input-radius);
+    padding: 4px 14px;
+    font-weight:bold;
+    line-height:21px;
+    border: 1px solid var(--main-action-bg);
+}
+
+.shepherd-button.shepherd-button-secondary {
+    border-radius: var(--input-radius);
+    border:1px solid var(--secondary-action-bg);
+}
+
+.shepherd-enabled.shepherd-element {
+    box-shadow:var(--large-shadow);
+    -webkit-filter: drop-shadow(0 0px 15px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(0 0px 15px rgba(0, 0, 0, 0.4));
+}
+
+.shepherd-button:not(:disabled):hover {
+    background:var(--main-action-hover-bg);
+    color:var(--main-action-hover-color);
+}
+
+.shepherd-has-title .shepherd-content .shepherd-cancel-icon {
+    color:var(--main-action-color);
+    width:16px;
+    margin-right: 10px;
+}
+
+.shepherd-has-title .shepherd-content .shepherd-cancel-icon:hover {
+    background: none;
+    opacity:0.8;
+}

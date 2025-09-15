@@ -1,0 +1,4 @@
+<rule name="rule 1Q" stopProcessing="true">
+	<match url="^"  />
+	<action type="Rewrite" url="/index.php"  />
+</rule>

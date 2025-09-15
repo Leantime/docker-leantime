@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+
+use Leantime\Core\Console\ConsoleKernel;
+use Symfony\Component\Console\Input\ArgvInput;
+
+define('LEAN_CLI', true);
+define('ARTISAN_BINARY', 'bin/leantime');
+
+require __DIR__.'/../vendor/autoload.php';
+
+//Get the application once.
+//Loads everything up once and then let's the bootloader manage it
+$app = require_once __DIR__.'/../bootstrap/app.php';
+
+$status = $app->handleCommand(new ArgvInput);
+
+exit($status);
+

@@ -1,0 +1,664 @@
+.progress {
+    height: 15px;
+}
+
+.progress .bar {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.progress-primary .bar {
+    background: var(--element-gradient);
+}
+
+.progress-info .bar {
+    background: var(--element-gradient);
+}
+
+.progress-success .bar {
+    background: var(--element-gradient);
+}
+
+.progress-warnng .bar {
+    background: var(--element-gradient);
+}
+
+.progress {
+    height: 17px;
+    margin-bottom: 0px;
+    border-radius: var(--element-radius);
+    overflow: hidden;
+    background-color: var(--layered-background);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.progress-wrapper .percent-label {
+    font-size:var(--font-size-s);
+}
+
+.progress-bar {
+    float: left;
+    width: 0;
+    height: 100%;
+    font-size: var(--base-font-size);
+    color: #ffffff;
+    text-align: center;
+    background-color: #428bca;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    -webkit-transition: width 0.6s ease;
+    transition: width 0.6s ease;
+}
+
+.progress-striped .progress-bar {
+    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-size: 40px 40px;
+}
+
+.progress.active .progress-bar {
+    -webkit-animation: progress-bar-stripes 2s linear infinite;
+    -moz-animation: progress-bar-stripes 2s linear infinite;
+    -ms-animation: progress-bar-stripes 2s linear infinite;
+    -o-animation: progress-bar-stripes 2s linear infinite;
+    animation: progress-bar-stripes 2s linear infinite;
+}
+
+.progress-bar-success {
+    background: var(--element-gradient);
+}
+
+.progress-striped .progress-bar-success {
+    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.progress-bar-info {
+    background-color: var(--blue);
+}
+
+.progress-striped .progress-bar-info {
+    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.progress-bar-warning {
+    background-color: var(--yellow);
+}
+
+.progress-striped .progress-bar-warning {
+    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.progress-bar-danger {
+    background-color: var(--red);
+}
+
+.progress-striped .progress-bar-danger {
+    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+
+.progressWrapper {
+    position:relative;
+    height: 45px;
+}
+
+.progressWrapper .step {
+    position: absolute;
+    display: block;
+    top: -10px;
+    margin-left: -15px;
+}
+
+.progressWrapper .step .innerCircle {
+    display:block;
+    width: 30px;
+    height: 30px;
+    border: 5px solid var(--layered-background);
+    border-radius: 30px;
+    background: var(--solid-neutral);
+    margin-top: 3px;
+}
+
+.progressWrapper .step .title {
+    margin-left:calc(-50% + 35px);
+    padding-top: 5px;
+    display: inline-block;
+    color:var(--primary-font-color);
+    opacity:0.5;
+    font-size:var(--font-size-m);
+}
+
+.progressWrapper .step .title:hover {
+    color:var(--primary-font-color) !important;
+}
+
+
+
+
+
+
+@-webkit-keyframes breathing {
+    0% {
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+
+    25% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+
+    75% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    100% {
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+}
+
+@keyframes breathing {
+    0% {
+        -webkit-transform: scale(0.9);
+        -ms-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+
+    25% {
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -webkit-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+
+    75% {
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+    }
+
+    100% {
+        -webkit-transform: scale(0.9);
+        -ms-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+}
+
+.progressWrapper .step.complete .innerCircle {
+    background:var(--accent1);
+    color:var(--accent1);
+
+}
+
+.progressWrapper .step.complete .title{
+    color:var(--accent1);
+    opacity:1;
+}
+
+.progressWrapper .step.current .innerCircle {
+    -webkit-animation: breathing 2s ease-out infinite normal;
+    animation: breathing 2s ease-out infinite normal;
+    background:var(--accent2);
+}
+
+.progressWrapper .step.current .title{
+    color:var(--accent1);
+    font-weight:bold;
+    opacity:1;
+}
+
+.progressWrapper .step .dropdown-menu {
+    padding:10px;
+    min-width:360px;
+}
+
+.progressWrapper .step .dropdown-menu li {
+    display:block;
+    clear:both;
+    padding:0px 10px 5px 10px;
+    border-color:var(--accent1);
+    border:1px solid var(--accent1);
+    border-radius:var(--box-radius);
+    margin-bottom:5px;
+}
+
+.progressWrapper .step .dropdown-menu li label {
+    color:var(--accent1);
+}
+
+.progressWrapper .step .dropdown-menu li.done {
+    opacity:0.6;
+}
+
+.progressWrapper .step .dropdown-menu li:hover {
+    background:var(--main-menu-link-hover-bg);
+}
+
+.progressWrapper .step .dropdown-menu li.done label{
+    text-decoration: line-through;
+    color:var(--primary-font-color);
+}
+
+.progressWrapper .step .dropdown-menu li input {
+    float:left;
+    margin-right:5px;
+}
+
+.progressWrapper .step li.checklistDescription {
+    padding:5px;
+    font-style:italic;
+    border:none;
+}
+
+
+.progressWrapper .step li .taskDescription {
+    font-size: var(--font-size-s);
+}
+
+
+.full-width-loader {
+    opacity: 0;
+    position: fixed;
+    z-index: 100;
+    top: 0px;
+    left: 0px;
+    height: 5px;
+    width: 100%;
+    background-color: transparent;
+    overflow: hidden;
+}
+
+
+.full-width-loader .indeterminate {
+    position: relative;
+    width: 100%;
+    background-color: transparent;
+    height: 5px;
+}
+
+.full-width-loader .indeterminate::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    background: var(--element-gradient);
+    animation: indeterminate 1.5s infinite ease-in-out;
+    width: 70%;
+    left: -70%;
+    box-shadow: var(--regular-shadow);
+}
+
+@keyframes indeterminate {
+    0% {
+        left: -70%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.full-width-loader.htmx-request {
+    display: block;
+    opacity: 1;
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2025-3-4 12:23:18
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info.
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation color-change-2x
+ * ----------------------------------------
+ */
+@-webkit-keyframes color-change-2x {
+    0% {
+        color: var(--accent1);
+    }
+    50% {
+        color: var(--accent2);
+    }
+    100% {
+        color: var(--accent1);
+    }
+}
+@keyframes color-change-2x {
+    0% {
+        color: var(--accent1);
+    }
+    50% {
+        color: var(--accent2);
+    }
+    100% {
+        color: var(--accent1);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes circle-pulse {
+    0%{
+        transform: rotate(0deg);
+        border-color: var(--accent1);
+    } 100% {
+          transform: rotate(360deg);
+              border-color: var(--accent2);
+      }
+}
+
+
+/* Animations */
+@keyframes startPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    75% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes rippleOut {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+}
+
+@keyframes glowIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Animations */
+@keyframes completePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes glowPulse {
+    0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; }
+    50% { opacity: 0.6; }
+    100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+}
+
+@keyframes fadeInCheck {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes circleAppear {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+/* Particle animations - each one goes in a different direction */
+@keyframes particleAnimation1 {
+    0% { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(-30px, -30px); opacity: 0; }
+}
+
+@keyframes particleAnimation2 {
+    0% { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(30px, -30px); opacity: 0; }
+}
+
+@keyframes particleAnimation3 {
+    0% { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(40px, 0); opacity: 0; }
+}
+
+@keyframes particleAnimation4 {
+    0% { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(30px, 30px); opacity: 0; }
+}
+
+@keyframes particleAnimation5 {
+    0% { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(-30px, 30px); opacity: 0; }
+}
+
+@keyframes particleAnimation6 {
+    0% { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(-40px, 0); opacity: 0; }
+}
+
+@keyframes particleAnimation7 {
+    0% { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(-20px, -40px); opacity: 0; }
+}
+
+@keyframes particleAnimation8 {
+    0% { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(20px, 40px); opacity: 0; }
+}
+
+.pulse {
+    -webkit-animation: pulse 1s infinite linear both;
+    animation: pulse 1s infinite linear both;
+}
+
+.color-change-2x {
+    -webkit-animation: color-change-2x 1s infinite linear both;
+    animation: color-change-2x 1s infinite linear both;
+}
+
+.pulse-click.starting {
+    animation: startPulse 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.pulse-click.starting::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(82, 113, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: rippleOut 0.5s ease-out;
+}
+
+.pulse-click.starting::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    animation: glowIn 0.4s ease-out forwards;
+}
+
+
+
+.circle-pulse {
+    -webkit-animation: circle-pulse 1s infinite linear both;
+    animation: circle-pulse 1s infinite linear both;
+}
+
+.timerContainer.stopped {
+    animation: pulse 0.4s ease-out;
+}
+
+.timerContainer .stopped::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.0) 70%);
+    border-radius: 50%;
+    opacity: 0;
+    animation: burst 0.8s ease-out forwards;
+}
+
+/* Stopped state with celebrations */
+.timerContainer .stopped {
+    animation: completePulse 0.4s ease-out;
+}
+
+/* Glow effect behind the button */
+.timerContainer .stopped::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    animation: glowPulse 0.8s ease-out forwards;
+}
+
+/* Checkmark that appears */
+.timerContainer .stopped::after {
+    content: '✓';
+    color: white;
+    font-size: 24px;
+    position: absolute;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeInCheck 0.3s 0.2s ease-out forwards;
+}
+
+/* Success circle that appears */
+.timerContainer .success-circle {
+    position: absolute;
+    display:none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 40px;
+    height: 40px;
+    border-color: var(--grey);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0;
+
+}
+
+.timerContainer .stopped .success-circle {
+    display:block;
+    animation: circleAppear 0.3s 0.1s ease-out forwards;
+}
+
+    /* Container for all the particles */
+.particles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Individual particles with different colors */
+.particle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.timerContainer .stopped .particle-1 {
+    background-color: var(--accent1);
+    animation: particleAnimation1 0.8s ease-out;
+}
+
+.timerContainer .stopped .particle-2 {
+    background-color: var(--accent2);
+    animation: particleAnimation2 0.8s ease-out;
+}
+
+.timerContainer .stopped .particle-3 {
+    background-color: #f61067;
+    animation: particleAnimation3 0.8s ease-out;
+}
+
+.timerContainer .stopped .particle-4 {
+    background-color: var(--accent1);
+    animation: particleAnimation4 0.8s ease-out;
+}
+
+.timerContainer .stopped .particle-5 {
+    background-color: var(--accent2);
+    animation: particleAnimation5 0.8s ease-out;
+}
+
+.timerContainer .stopped .particle-6 {
+    background-color: #f61067;
+    animation: particleAnimation6 0.8s ease-out;
+}
+
+.timerContainer .stopped .particle-7 {
+    background-color: var(--accent1);
+    animation: particleAnimation7 0.8s ease-out;
+}
+
+.timerContainer .stopped .particle-8 {
+    background-color: var(--accent2);
+    animation: particleAnimation8 0.8s ease-out;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
