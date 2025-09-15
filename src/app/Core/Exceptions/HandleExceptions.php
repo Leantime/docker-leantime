@@ -319,38 +319,52 @@ class HandleExceptions
      * @return void
      */
     public static function flushHandlersState()
-    {
-        while (true) {
-            $previousHandler = set_exception_handler(static fn () => null);
+{
+    // Reset exception handlers
+    while (true) {
+        $previousHandler = set_exception_handler(static fn () => null);
 
-            restore_exception_handler();
+        restore_exception_handler();
 
-            if ($previousHandler === null) {
-                break;
-            }
-
-            restore_exception_handler();
+        if ($previousHandler === null) {
+            break;
         }
 
-        while (true) {
-            $previousHandler = set_error_handler(static fn () => null);
+        restore_exception_handler();
+    }
 
-            restore_error_handler();
+    // Reset error handlers
+    while (true) {
+        $previousHandler = set_error_handler(static fn () => null);
 
-            if ($previousHandler === null) {
-                break;
-            }
+        restore_error_handler();
 
-            restore_error_handler();
+        if ($previousHandler === null) {
+            break;
         }
 
-        if (class_exists(ErrorHandler::class)) {
-            $instance = ErrorHandler::instance();
+        restore_error_handler();
+    }
 
-            if ((fn () => $this->enabled ?? false)->call($instance)) {
-                $instance->disable();
-                $instance->enable();
+    // Handle PHPUnit ErrorHandler if available
+    if (class_exists(\PHPUnit\Runner\ErrorHandler::class)) {
+        $instance = \PHPUnit\Runner\ErrorHandler::instance();
+
+        try {
+            $ref = new \ReflectionClass($instance);
+
+            if ($ref->hasProperty('enabled')) {
+                $prop = $ref->getProperty('enabled');
+                $prop->setAccessible(true);
+
+                if ($prop->getValue($instance)) {
+                    $instance->disable();
+                    $instance->enable();
+                }
             }
+        } catch (\ReflectionException $e) {
+            // If reflection fails, just ignore it
         }
     }
+}
 }
