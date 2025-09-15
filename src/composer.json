@@ -1,0 +1,207 @@
+{
+    "name": "leantime/leantime",
+    "description": "Open source project management system for non-project managers. Simple like Trello, powerful like Jira. Built with neurodiversity in mind.",
+    "type": "project",
+    "keywords": [
+        "project-management", "task-management", "kanban", "gantt", "php", "mysql",
+        "jira-alternative", "clickup-alternative", "asana-alternative", "agile",
+        "scrum", "lean", "innovation-management", "neurodiversity-friendly"
+    ],
+    "homepage": "http://leantime.io",
+    "readme": "README.md",
+    "license": "AGPL-3.0-only",
+    "authors": [
+        {
+            "name": "Marcel Folaron",
+            "email": "marcel@leantime.io",
+            "homepage": "http://leantime.io"
+        }
+    ],
+    "support": {
+        "email": "support@leantime.io",
+        "issues": "https://github.com/Leantime/leantime/issues",
+        "docs": "https://docs.leantime.io",
+        "chat": "https://discord.com/invite/YJeNS7VkQh",
+        "security": "https://leantime.io/responsible-disclosure-policy/"
+    },
+    "funding": [
+        {
+            "type": "Github Sponsor",
+            "url": "https://github.com/sponsors/Leantime"
+        },
+        {
+            "type": "Support Leantime",
+            "url": "https://marketplace.leantime.io/product/support-leantime"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "ext-ldap": "*",
+        "ext-mysqli": "*",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-zip": "*",
+        "ext-mbstring": "*",
+        "ext-pcntl": "*",
+        "ext-posix": "*",
+        "ext-bcmath": "*",
+        "ext-simplexml": "*",
+        "ext-phar": "*",
+        "ext-openssl": "*",
+        "ext-gd": "*",
+        "ext-fileinfo": "*",
+        "ext-dom": "*",
+        "laravel/framework": "^v11.44",
+        "guzzlehttp/guzzle": "^7.9",
+        "aws/aws-sdk-php": "^3.344.6",
+        "phpmailer/phpmailer": "^6.6",
+        "robthree/twofactorauth": "^1.8",
+        "endroid/qr-code": "^6.0",
+        "league/html-to-markdown": "^5.1",
+        "ramsey/uuid": "^4.3",
+        "htmlawed/htmlawed": "^1.2",
+        "symfony/dotenv": "^7.1.6",
+        "lasserafn/php-initial-avatar-generator": "^4.2",
+        "guzzlehttp/oauth-subscriber": "^0.8.1",
+        "kamermans/guzzle-oauth2-subscriber": "^1.0",
+        "league/csv": "^9.8",
+        "vedmant/laravel-feed-reader": "^1.6",
+        "carbon-cli/carbon-cli": "^1.2",
+        "metasyntactical/composer-plugin-license-check": "^2.1",
+        "phpseclib/phpseclib": "~3.0",
+        "spatie/icalendar-generator": "^2.6",
+        "sentry/sentry-laravel": "^4.13",
+        "stripe/stripe-php": "^v17.3.0",
+        "crispchat/php-crisp-api": "^1.7",
+        "php-http/httplug": "^2.4",
+        "laravel/sanctum": "^4.0",
+        "doctrine/dbal": "^3.5.1",
+        "laravel/socialite": "^5.16",
+        "socialiteproviders/authentik": "^5.2",
+        "socialiteproviders/auth0": "^4.2",
+        "socialiteproviders/gitea": "^4.1",
+        "socialiteproviders/github": "^4.1",
+        "socialiteproviders/gitlab": "^4.1",
+        "socialiteproviders/google": "^4.1",
+        "socialiteproviders/keycloak": "^5.3",
+        "socialiteproviders/laravelpassport": "^4.3",
+        "socialiteproviders/microsoft": "^4.6",
+        "socialiteproviders/microsoft-azure": "^5.2",
+        "socialiteproviders/okta": "^4.4",
+        "socialiteproviders/propelauth": "^4.0",
+        "socialiteproviders/eduid": "^4.0",
+        "socialiteproviders/appnet": "^4.1",
+        "socialiteproviders/saml2": "^4.7",
+        "php-http/guzzle7-adapter": "^1.1",
+        "symfony/cache": "^7.2",
+        "prism-php/prism": "^0.57.0",
+        "inspector-apm/neuron-ai": "1.12.8",
+        "johngrogg/ics-parser": "^3",
+        "sabre/dav": "^4.7",
+        "hkulekci/qdrant": "^0.5.8",
+        "league/flysystem-aws-s3-v3": "^3.0",
+        "league/flysystem-path-prefixing": "^3.0",
+        "php-mcp/server": "dev-main as 3.1.1",
+        "php-mcp/laravel": "3.0.0"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "symfony/var-dumper": "^7.2",
+        "filp/whoops": "^2.14",
+        "squizlabs/php_codesniffer": "^3.8",
+        "codeception/codeception": "^5.1",
+        "codeception/module-phpbrowser": "*",
+        "codeception/module-asserts": "^3.0",
+        "codeception/module-db": "^3.1",
+        "codeception/module-webdriver": "^3.2",
+        "codeception/stub": "^4.1",
+        "codeception/module-laravel": "^3.1",
+        "codeception/module-rest": "^3.4",
+        "phpcsstandards/phpcsextra": "^1.2.1",
+        "zebra-north/phpcs-short-types": "^1.0",
+        "laravel/pint": "^1.17",
+        "phpstan/phpstan": "^1.10",
+        "leantime/leantime-documentor": "dev-main",
+        "mockery/mockery": "^1.6"
+    },
+    "provide": {
+        "psr/container-implementation": "1.1|2.0",
+        "psr/simple-cache-implementation": "1.0|2.0|3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Leantime\\": [
+                "app/"
+            ]
+        },
+        "files": [
+            "app/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Leantime\\": [
+                "app/"
+            ],
+            "Unit\\": [
+                "tests/Unit/"
+            ],
+            "Leanstan\\": [
+                ".phpstan/"
+            ]
+        },
+        "files": [
+            "app/helpers.php"
+        ]
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/leantime/leantime-documentor.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/leantime/php-mcp-server.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Leantime/reactphp-http.git"
+        }
+    ],
+    "config": {
+        "platform-check": false,
+        "platform": {
+            "php": "8.2.0"
+        },
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "metasyntactical/composer-plugin-license-check": true,
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true,
+            "wikimedia/composer-merge-plugin": true
+        }
+    },
+    "extra": {
+        "installer-paths": {
+            "app/Plugins/{$name}/": [
+                "type:leantime-plugin"
+            ]
+        },
+        "carbon": {
+            "macros": [
+                "Leantime\\Core\\Support\\CarbonMacros"
+            ]
+        },
+        "merge-plugin": {
+            "ignore-duplicates": true,
+            "include": [
+                "app/Plugins/*/composer.json"
+            ]
+        },
+        "laravel": {
+            "dont-discover": [
+                "php-mcp/laravel"
+            ]
+        }
+    }
+}
