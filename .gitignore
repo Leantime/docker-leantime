@@ -3,3 +3,5 @@
 .DS_store
 .codebuddy
 .idea
+db_data/
+__pycache__/

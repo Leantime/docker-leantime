@@ -5,7 +5,7 @@ services:
     image: mysql:8.4
     container_name: mysql_leantime
     volumes:
-      - db_data:/var/lib/mysql
+      - ./db_data:/var/lib/mysql
     restart: unless-stopped
     env_file: ./.env                                        # Environment file with settings
     networks:
@@ -16,7 +16,18 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-
+  mcp:
+    build:
+      context: ./fastmcp-python          # path to the directory containing your Dockerfile
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8000:8000
+    environment:
+      - LEANTIME_BASE_URL=http://leantime:8080
+      - LEANTIME_API_KEY=lt_scXGZxob1bCyw99zwypjJ4vx5F94ehSJ_mcYS8SuAC641d9lwiVaJZm3UklMPeGFz
+    networks:
+      - leantime-net
   leantime:
     image: leantime/leantime:${LEAN_VERSION:-latest}
     restart: unless-stopped
@@ -32,8 +43,26 @@ services:
       - CAP_SETUID
     ports:
       - "${LEAN_PORT:-8080}:8080"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+
+      # WEB (everything except /api)
+      - "traefik.http.routers.leantime.rule=Host(`leantime.app.apecia.local`)"
+      - "traefik.http.routers.leantime.entrypoints=websecure"
+      - "traefik.http.routers.leantime.tls=true"
+      - "traefik.http.services.leantime.loadbalancer.server.port=8080"
+      # HTTP → HTTPS Redirect
+      - "traefik.http.routers.leantime-http.rule=Host(`leantime.app.apecia.local`)"
+      - "traefik.http.routers.leantime-http.entrypoints=web"
+      - "traefik.http.routers.leantime-http.middlewares=leantime-redirect"
+
+      # Redirect Middleware
+      - "traefik.http.middlewares.leantime-redirect.redirectscheme.scheme=https"
+
     networks:
       - leantime-net
+      - traefik-public
     volumes:
       - public_userfiles:/var/www/html/public/userfiles     # Volume to store public files, logo etc
       - userfiles:/var/www/html/userfiles                   # Original volume name for compatibility
@@ -54,7 +83,6 @@ services:
     profiles: [ "helper" ]
 
 volumes:
-  db_data:
   userfiles:                                               # New volume for public files
   public_userfiles:
   plugins:
@@ -62,3 +90,5 @@ volumes:
 
 networks:
   leantime-net:
+  traefik-public:
+    external: true
