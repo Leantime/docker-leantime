@@ -111,7 +111,21 @@ RUN set -ex; \
                /var/www/html/storage/framework/cache \
                /var/www/html/storage/framework/sessions \
                /var/www/html/storage/framework/views \
-               /var/www/html/app/Plugins;
+               /var/www/html/app/Plugins; \
+    # Arbitrary-uid support. PUID/PGID above are BUILD args, so the published image
+    # is fixed at uid 1000 — but plenty of hosts (Unraid, Synology, TrueNAS,
+    # OpenShift, rootless podman) force their own uid onto the container. Group-own
+    # everything the runtime writes by root(0) and mirror the user bits onto the
+    # group, so any uid running with gid 0 can start. Without this, nginx dies with
+    # 'mkdir /var/lib/nginx/tmp/client_body failed (13: Permission denied)' and
+    # exit 1, and the app 500s on unwritable storage.
+    chgrp -R 0 /var/www/html /run /var/log/nginx /var/lib/nginx && \
+    chmod -R g=u /var/www/html/storage \
+                 /var/www/html/bootstrap/cache \
+                 /var/www/html/userfiles \
+                 /var/www/html/public/userfiles \
+                 /var/www/html/app/Plugins \
+                 /run /var/log/nginx /var/lib/nginx;
 
 # Copy configuration files
 COPY config/custom.ini /usr/local/etc/php/conf.d/
