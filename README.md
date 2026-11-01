@@ -62,21 +62,28 @@ To map port 80 externally to 8080 internally in docker-compose.yml:
 
 ### Running as Non-Root User
 
-You can map the container's internal user/group to match your host's user/group by setting the `PUID` and `PGID` environment variables. This helps avoid permission issues between the container and host machine. To find your host user/group ID, run `id username` on the host system. For example, to run the container as your current user, you would set:
+The published image runs as uid/gid `1000`. `PUID` and `PGID` are **build** arguments, so setting them as environment variables on the published image has no effect.
+
+Anything you mount into the container (named volumes or bind mounts) must be writable by the uid the container runs as. You have two options:
+
+**Keep uid 1000** and hand your bind-mounted host folders to it:
 
 ```
-    docker run -e PUID=$(id -u) -e PGID=$(id -g) leantime/leantime:latest
+    sudo chown -R 1000:1000 ./userfiles ./public_userfiles ./plugins ./logs
+    sudo chmod -R 775 ./userfiles ./public_userfiles ./plugins ./logs
 ```
 
-Or in docker-compose.yml:
+**Run as your own uid** (Synology, Unraid, TrueNAS, rootless podman). Set `user:` with group `0`; the image's writable folders are group-owned by root for this. Find your ids with `id username` on the host:
 
 ```
-services: 
-    leantime: 
-        environment: 
-            - PUID=1000 # Replace with your user ID 
-            - PGID=1000 # Replace with your group ID
+services:
+    leantime:
+        user: "1026:0" # Replace 1026 with your host user ID
 ```
+
+Or with docker run: `docker run --user "$(id -u):0" ... leantime/leantime:latest`.
+
+To bake a different default uid into the image instead, build it yourself: `docker build --build-arg PUID=1026 --build-arg PGID=100 --build-arg LEAN_VERSION=<version> .`
 
 ### Volume Management
 Important directories that should be persisted:
@@ -107,24 +114,25 @@ Currently, this is only supported for `LEAN_DB_PASSWORD`, `LEAN_EMAIL_SMTP_PASSW
 ## Common Issues & Solutions
 
 ### Permission Issues
-If you see "Operation not permitted" errors:
-1. Ensure volumes are properly created
-2. Check ownership of mounted directories
-3. Run container as root (default) or properly configure user permissions
+If you see "Operation not permitted" or "Permission denied" errors, the mounted folders aren't writable by the uid the container runs as (see [Running as Non-Root User](#running-as-non-root-user)).
 
-Fix permissions manually:
+For bind mounts, fix ownership on the host (see above). For named volumes, fix them from inside the container. The container runs as a non-root user, so `docker exec` needs `-u root`:
 
 ```
-    docker exec -it leantime chown -R www-data:www-data /var/www/html/userfiles \ 
-                                       /var/www/html/public/userfiles \ 
-                                       /var/www/html/storage/logs \ 
+    docker exec -u root leantime chown -R www-data:0 /var/www/html/userfiles \
+                                       /var/www/html/public/userfiles \
+                                       /var/www/html/storage/logs \
                                        /var/www/html/app/Plugins
-    docker exec -it leantime chmod -R 775 /var/www/html/userfiles \ 
-                                       /var/www/html/public/userfiles \ 
-                                       /var/www/html/storage/logs \ 
+    docker exec -u root leantime chmod -R ug+rwX /var/www/html/userfiles \
+                                       /var/www/html/public/userfiles \
+                                       /var/www/html/storage/logs \
                                        /var/www/html/app/Plugins
-    
 ```
+
+On Synology, also check that the host folders show no `+` (DSM ACL) in `ls -la`. Running `chmod` on the host folder removes it.
+
+### Database Unhealthy on First Start
+`dependency failed to start: container mysql_leantime is unhealthy` on the very first `docker compose up` usually means MySQL is still initializing its data directory. On NAS HDD arrays this can take several minutes (we measured about 3 minutes on a Synology with SSD cache). The compose file's healthcheck allows a 300 second `start_period` for this. If your storage is slower still, raise `start_period`. Later restarts are fast.
 
 ### Database Connection Issues
 1. Verify database credentials in .env file
